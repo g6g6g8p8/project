@@ -16,16 +16,6 @@ import ProjectCard from './components/ProjectCard';
 import { getImageColor } from './lib/utils';
 import { useAbout } from './hooks/useAbout';
 
-function groupBy<T>(array: T[], key: keyof T): Record<string, T[]> {
-  return array.reduce((groups, item) => {
-    const value = item[key] as string;
-    return {
-      ...groups,
-      [value]: [...(groups[value] || []), item],
-    };
-  }, {} as Record<string, T[]>);
-}
-
 function FeaturedProjects() {
   const [searchParams, setSearchParams] = useSearchParams();
   const filters: ProjectFilters = {
@@ -267,88 +257,10 @@ function About() {
   );
 }
 
-function DesktopSidebar() {
-  const { projects } = useProjects();
-  const projectsByYear = groupBy(projects, 'year');
-  const years = Object.keys(projectsByYear).sort().reverse();
-
-  return (
-    <aside className="hidden lg:block fixed h-screen w-68 bg-background border-r border-border p-6 overflow-y-auto">
-      <Link to="/" className="text-[20px] leading-[27px] md:text-[32px] md:leading-[36px] font-semibold tracking-[-.021em] block mb-8">
-        Giulio Pinotti
-      </Link>
-      
-      <nav className="flex flex-col justify-between h-[calc(100vh-120px)]">
-        <div className="space-y-8">
-          {years.map((year) => (
-            <div key={year}>
-              <h3 className="text-subheadline font-medium opacity-60 mb-4">{year}</h3>
-              <ul className="space-y-3">
-                {projectsByYear[year].map((project) => (
-                  <li key={project.id}>
-                    <NavLink
-                      to={`/projects/${project.slug}`}
-                      className={({ isActive }) =>
-                        cn("block text-body hover:opacity-100 transition-opacity", {
-                          "opacity-100": isActive,
-                          "opacity-60": !isActive,
-                        })
-                      }
-                    >
-                      {project.title}
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        <div className="space-y-6">
-          <Link 
-            to="/about"
-            className="block text-body opacity-60 hover:opacity-100 transition-opacity"
-          >
-            About
-          </Link>
-          
-          <div className="flex items-center gap-2">
-            <a
-              href="https://www.linkedin.com/in/giuliopinotti/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-8 h-8 flex items-center justify-center rounded-full bg-border/10 hover:bg-border/20 transition-colors"
-            >
-              <LinkedInIcon size={18} className="opacity-60" />
-            </a>
-            <a
-              href="https://www.behance.net/giuliopinotti"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-8 h-8 flex items-center justify-center rounded-full bg-border/10 hover:bg-border/20 transition-colors"
-            >
-              <BehanceIcon size={18} className="opacity-60" />
-            </a>
-            <a
-              href="https://soundcloud.com/djpinotti"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-8 h-8 flex items-center justify-center rounded-full bg-border/10 hover:bg-border/20 transition-colors"
-            >
-              <i className="bi bi-headphones opacity-60 text-lg"></i>
-            </a>
-          </div>
-        </div>
-      </nav>
-    </aside>
-  );
-}
-
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-background dark:bg-black text-foreground lg:grid lg:grid-cols-[272px_1fr]">
-        <DesktopSidebar />
+      <div className="min-h-screen bg-background dark:bg-black text-foreground">
         <main className="min-h-screen">
           <Routes>
             <Route path="/" element={<Home />} />
