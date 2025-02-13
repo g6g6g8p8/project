@@ -25,8 +25,8 @@ function DesktopSidebar() {
         Giulio Pinotti
       </Link>
       
-      <nav className="space-y-8">
-        <div className="space-y-4">
+      <nav className="flex flex-col h-[calc(100vh-8rem)]">
+        <div className="flex-1 space-y-8">
           {categories && Object.entries(categories).map(([category, items]) => (
             <div key={category}>
               <h2 className="text-subheadline font-medium opacity-60 mb-2">
@@ -53,64 +53,66 @@ function DesktopSidebar() {
           ))}
         </div>
 
-        <div className="space-y-2">
-          <NavLink
-            to="/about"
-            className={({ isActive }) =>
-              cn(
-                "block text-callout hover:opacity-80 transition-opacity",
-                isActive ? "opacity-100" : "opacity-60"
-              )
-            }
-          >
-            About
-          </NavLink>
-          <NavLink
-            to="/contact"
-            className={({ isActive }) =>
-              cn(
-                "block text-callout hover:opacity-80 transition-opacity",
-                isActive ? "opacity-100" : "opacity-60"
-              )
-            }
-          >
-            Contact
-          </NavLink>
-        </div>
+        <div className="space-y-8 pt-8 border-t border-border">
+          <div className="space-y-2">
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                cn(
+                  "block text-callout hover:opacity-80 transition-opacity",
+                  isActive ? "opacity-100" : "opacity-60"
+                )
+              }
+            >
+              About
+            </NavLink>
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                cn(
+                  "block text-callout hover:opacity-80 transition-opacity",
+                  isActive ? "opacity-100" : "opacity-60"
+                )
+              }
+            >
+              Contact
+            </NavLink>
+          </div>
 
-        <div className="flex space-x-4">
-          <a
-            href="https://linkedin.com/in/pinotti"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="opacity-60 hover:opacity-100 transition-opacity"
-          >
-            <LinkedinIcon size={20} />
-          </a>
-          <a
-            href="https://behance.net/giuliopinotti"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="opacity-60 hover:opacity-100 transition-opacity"
-          >
-            <BehanceIcon size={20} />
-          </a>
-          <a
-            href="https://youtube.com/@giuliopinotti"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="opacity-60 hover:opacity-100 transition-opacity"
-          >
-            <YoutubeIcon size={20} />
-          </a>
-          <a
-            href="https://soundcloud.com/djpinotti"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="opacity-60 hover:opacity-100 transition-opacity"
-          >
-            <CloudIcon size={20} />
-          </a>
+          <div className="flex space-x-4">
+            <a
+              href="https://linkedin.com/in/pinotti"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="opacity-60 hover:opacity-100 transition-opacity"
+            >
+              <LinkedinIcon size={20} />
+            </a>
+            <a
+              href="https://behance.net/giuliopinotti"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="opacity-60 hover:opacity-100 transition-opacity"
+            >
+              <BehanceIcon size={20} />
+            </a>
+            <a
+              href="https://youtube.com/@giuliopinotti"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="opacity-60 hover:opacity-100 transition-opacity"
+            >
+              <YoutubeIcon size={20} />
+            </a>
+            <a
+              href="https://soundcloud.com/djpinotti"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="opacity-60 hover:opacity-100 transition-opacity"
+            >
+              <CloudIcon size={20} />
+            </a>
+          </div>
         </div>
       </nav>
     </aside>

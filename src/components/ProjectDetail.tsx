@@ -197,7 +197,7 @@ export default function ProjectDetail() {
         </Link>
 
         <div className="relative">
-          <div className="md:aspect-[21/9] aspect-[3/4] w-full">
+          <div className="md:aspect-[21/9] aspect-[3/4] w-full shadow-[0_2px_8px_rgba(0,0,0,0.08)] dark:shadow-none">
             <img
               src={project.image_url}
               alt={project.title}
