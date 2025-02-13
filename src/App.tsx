@@ -313,8 +313,8 @@ function About() {
 
 function Contact() {
   return (
-    <div className="p-8 max-w-3xl">
-      <div className="lg:hidden flex items-center justify-between mb-8">
+    <div className="p-5 max-w-3xl">
+      <div className="lg:hidden flex items-center justify-between mb-5">
         <Link to="/" className="text-title-2">
           Giulio Pinotti
         </Link>
@@ -325,7 +325,7 @@ function Contact() {
           <UserCircle size={24} className="opacity-60" />
         </Link>
       </div>
-      <h2 className="text-title-1 mb-8">Contact</h2>
+      <h2 className="text-title-1 mb-5">Contact</h2>
       <div className="prose">
         <p className="text-body">
           Get in touch for collaborations, inquiries, or just to say hello.

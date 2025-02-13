@@ -171,7 +171,7 @@ export default function ProjectDetail() {
 
   if (!project) {
     return (
-      <div className="p-8 max-w-6xl mx-auto">
+      <div className="p-5 md:p-8 max-w-6xl mx-auto">
         <h1 className="text-title-2 mb-4">Project not found</h1>
         <Link to="/" className="text-body opacity-60 hover:opacity-100 transition-opacity inline-flex items-center gap-2">
           <CloseIcon size={20} />
