@@ -170,7 +170,7 @@ function FeaturedProjects() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mx-[5%] md:mx-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mx-[7.5%] md:mx-0">
         {loading ? (
           <div className="col-span-2 flex items-center justify-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-foreground"></div>
