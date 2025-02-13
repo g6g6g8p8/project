@@ -16,6 +16,16 @@ import ProjectCard from './components/ProjectCard';
 import { getImageColor } from './lib/utils';
 import { useAbout } from './hooks/useAbout';
 
+function groupBy<T>(array: T[], key: keyof T): Record<string, T[]> {
+  return array.reduce((groups, item) => {
+    const value = item[key] as string;
+    return {
+      ...groups,
+      [value]: [...(groups[value] || []), item],
+    };
+  }, {} as Record<string, T[]>);
+}
+
 function FeaturedProjects() {
   const [searchParams, setSearchParams] = useSearchParams();
   const filters: ProjectFilters = {
