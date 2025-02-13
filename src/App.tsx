@@ -30,7 +30,7 @@ function DesktopSidebar() {
 
   return (
     <aside className="hidden lg:block fixed h-screen w-80 bg-background border-r border-border p-6 overflow-y-auto">
-      <Link to="/" className="text-[23px] leading-[27px] md:text-[32px] md:leading-[36px] font-semibold tracking-[-.021em] block mb-8">
+      <Link to="/" className="text-[20px] leading-[27px] md:text-[32px] md:leading-[36px] font-semibold tracking-[-.021em] block mb-8">
         Giulio Pinotti
       </Link>
       
@@ -62,7 +62,7 @@ function DesktopSidebar() {
           ))}
         </div>
 
-        <div className="space-y-8 pt-8 border-t border-border">
+        <div className="space-y-8">
           <div className="space-y-2">
             <NavLink
               to="/about"
@@ -394,7 +394,7 @@ function App() {
     <Router>
       <div className="min-h-screen bg-background dark:bg-black text-foreground">
         <DesktopSidebar />
-        <main className="lg:ml-80 bg-background dark:bg-black min-h-screen">
+        <main className="lg:ml-68 bg-background dark:bg-black min-h-screen">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

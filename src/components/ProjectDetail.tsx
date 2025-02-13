@@ -214,7 +214,7 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div className="bg-background dark:bg-black">
+    <div className="bg-background dark:bg-black lg:mr-68">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
