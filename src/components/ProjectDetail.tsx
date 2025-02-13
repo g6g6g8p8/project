@@ -233,33 +233,30 @@ export default function ProjectDetail() {
             </div>
 
             <div className="mt-16 space-y-5">
-              <h3 className="text-subheadline font-medium opacity-60">EXPLORE</h3>
-              <div className="space-y-4">
-                <div>
-                  <span className="text-footnote opacity-60 block mb-2">Category</span>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-2 bg-foreground/5 dark:bg-foreground/10 rounded-full text-footnote">
-                      {project.category}
-                    </span>
-                  </div>
-                </div>
-
-                <div>
-                  <span className="text-footnote opacity-60 block mb-2">Client</span>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-2 bg-foreground/5 dark:bg-foreground/10 rounded-full text-footnote">
-                      {project.client}
-                    </span>
-                  </div>
-                </div>
-
-                <div>
-                  <span className="text-footnote opacity-60 block mb-2">Role</span>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-2 bg-foreground/5 dark:bg-foreground/10 rounded-full text-footnote">
-                      {project.role}
-                    </span>
-                  </div>
+              <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">EXPLORE</h3>
+              <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleFilter('tag', tag)}
+                      className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                  <button
+                    onClick={() => handleFilter('client', project.client)}
+                    className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
+                  >
+                    {project.client}
+                  </button>
+                  <button
+                    onClick={() => handleFilter('role', project.role)}
+                    className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
+                  >
+                    {project.role}
+                  </button>
                 </div>
               </div>
             </div>

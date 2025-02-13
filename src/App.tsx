@@ -12,11 +12,11 @@ function DesktopSidebar() {
   const { projects } = useProjects();
   
   const categories = projects?.reduce((acc, project) => {
-    const category = project.tags[0] || 'Other';
-    if (!acc[category]) {
-      acc[category] = [];
+    const tag = project.tags[0] || 'Other';
+    if (!acc[tag]) {
+      acc[tag] = [];
     }
-    acc[category].push(project);
+    acc[tag].push(project);
     return acc;
   }, {} as Record<string, typeof projects>);
 
