@@ -29,7 +29,7 @@ function DesktopSidebar() {
   }, {} as Record<string, typeof projects>);
 
   return (
-    <aside className="hidden lg:block fixed h-screen w-80 bg-background border-r border-border p-6 overflow-y-auto">
+    <aside className="hidden lg:block fixed h-screen w-68 bg-background border-r border-border p-6 overflow-y-auto z-50">
       <Link to="/" className="text-[20px] leading-[27px] md:text-[32px] md:leading-[36px] font-semibold tracking-[-.021em] block mb-8">
         Giulio Pinotti
       </Link>
@@ -95,7 +95,7 @@ function DesktopSidebar() {
               rel="noopener noreferrer"
               className="opacity-60 hover:opacity-100 transition-opacity"
             >
-              <LinkedInIcon size={20} />
+              <i className="bi bi-linkedin text-xl"></i>
             </a>
             <a
               href="https://behance.net/giuliopinotti"
@@ -103,15 +103,15 @@ function DesktopSidebar() {
               rel="noopener noreferrer"
               className="opacity-60 hover:opacity-100 transition-opacity"
             >
-              <BehanceIcon size={20} />
+              <i className="bi bi-behance text-xl"></i>
             </a>
             <a
-              href="https://soundcloud.com/giuliopinotti"
+              href="https://soundcloud.com/djpinotti"
               target="_blank"
               rel="noopener noreferrer"
               className="w-8 h-8 flex items-center justify-center rounded-full bg-border/10 hover:bg-border/20 transition-colors"
             >
-              <SoundCloudIcon size={18} className="opacity-60" />
+              <i className="bi bi-soundwave opacity-60 text-lg"></i>
             </a>
           </div>
         </div>
