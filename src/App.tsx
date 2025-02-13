@@ -79,7 +79,7 @@ function Home() {
   const { projects } = useProjects();
 
   return (
-    <div className="p-5 md:p-8 lg:p-12">
+    <div className="p-5 md:p-8 lg:p-10">
       <div className="flex items-center justify-between mb-5">
         <Link to="/" className="text-[22px] leading-[27px] md:text-[27px] md:leading-[32px] font-semibold tracking-[-.021em]">
           Giulio Pinotti
@@ -139,7 +139,7 @@ function About() {
 
   return (
     <div className="min-h-screen bg-[#F7F7F7] dark:bg-black">
-      <div className="p-5 md:p-8 lg:p-12">
+      <div className="p-5 md:p-8 lg:p-10">
         <button
           onClick={() => navigate(-1)}
           className="fixed lg:absolute top-8 right-8 z-50 w-9 h-9 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
@@ -266,7 +266,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/projects/:slug" element={
-              <div className="p-5 md:p-8 lg:p-12">
+              <div className="p-5 md:p-8 lg:p-10">
                 <ProjectDetail />
               </div>
             } />

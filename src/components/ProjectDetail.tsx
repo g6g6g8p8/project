@@ -214,15 +214,15 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div className="lg:grid lg:grid-cols-2 lg:gap-12">
+    <div className="lg:grid lg:grid-cols-[40%_60%] lg:gap-12">
       {/* Left Column - Fixed */}
       <div className="lg:sticky lg:top-12 lg:h-[calc(100vh-96px)] space-y-8">
         <button
           onClick={() => navigate(-1)}
-          className="fixed lg:absolute top-8 right-8 z-50 w-9 h-9 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
+          className="fixed top-8 right-8 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
           aria-label="Close project"
         >
-          <CloseIcon size={17} />
+          <CloseIcon size={20} />
         </button>
 
         {/* Project Card Style */}
@@ -248,9 +248,21 @@ export default function ProjectDetail() {
             <p className="text-body text-white/90">{project.description}</p>
           </div>
         </div>
+      </div>
+
+      {/* Right Column - Scrollable */}
+      <div className="mt-8 lg:mt-0 space-y-8">
+        {content.map((section, index) => (
+          <div key={index} className="space-y-4">
+            {section.title && (
+              <h2 className="text-title-3">{section.title}</h2>
+            )}
+            {renderContent(section)}
+          </div>
+        ))}
 
         {/* Explore Section */}
-        <div className="space-y-5">
+        <div className="mt-16 space-y-5">
           <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">EXPLORE</h3>
           <div className="flex flex-wrap gap-2">
             {project.tags.map((tag, index) => (
@@ -276,18 +288,6 @@ export default function ProjectDetail() {
             </button>
           </div>
         </div>
-      </div>
-
-      {/* Right Column - Scrollable */}
-      <div className="mt-8 lg:mt-0 space-y-8">
-        {content.map((section, index) => (
-          <div key={index} className="space-y-4">
-            {section.title && (
-              <h2 className="text-title-3">{section.title}</h2>
-            )}
-            {renderContent(section)}
-          </div>
-        ))}
 
         {/* Share Button */}
         <div className="mt-16 flex items-center justify-center">
