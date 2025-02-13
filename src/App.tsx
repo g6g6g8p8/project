@@ -29,7 +29,7 @@ function DesktopSidebar() {
   }, {} as Record<string, typeof projects>);
 
   return (
-    <aside className="hidden lg:block fixed h-screen w-68 bg-background border-r border-border p-6 overflow-y-auto">
+    <aside className="hidden lg:block fixed top-0 left-0 h-screen w-68 bg-background border-r border-border p-6 overflow-y-auto z-50">
       <Link to="/" className="text-[22px] leading-[27px] md:text-[27px] md:leading-[32px] font-semibold tracking-[-.021em] block mb-8">
         Giulio Pinotti
       </Link>
@@ -119,7 +119,7 @@ function DesktopSidebar() {
               rel="noopener noreferrer"
               className="w-8 h-8 flex items-center justify-center rounded-full bg-border/10 hover:bg-border/20 transition-colors"
             >
-              <i className="bi bi-soundwave opacity-60 text-lg"></i>
+              <i className="bi bi-headphones opacity-60 text-lg"></i>
             </a>
           </div>
         </div>
