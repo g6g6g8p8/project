@@ -8,12 +8,13 @@ export function useProject(slug: string | undefined) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchProject() {
-      if (!slug) {
-        setLoading(false);
-        return;
-      }
+    if (!slug) {
+      setLoading(false);
+      return;
+    }
 
+    setLoading(true);
+    async function fetchProject() {
       try {
         // Fetch project details
         const { data: projectData, error: projectError } = await supabase

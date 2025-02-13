@@ -201,7 +201,7 @@ export default function ProjectDetail() {
     );
   }
 
-  if (!project) {
+  if (!project || !content) {
     return (
       <div className="p-5 md:p-8 max-w-6xl mx-auto">
         <h1 className="text-title-2 mb-4">Project not found</h1>
@@ -220,6 +220,7 @@ export default function ProjectDetail() {
         <button
           onClick={() => navigate(-1)}
           className="fixed top-8 right-8 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
+          aria-label="Close project"
         >
           <CloseIcon size={20} />
         </button>
@@ -240,12 +241,12 @@ export default function ProjectDetail() {
 
       {/* Right Column - Scrollable */}
       <div className="mt-8 lg:mt-0 space-y-8">
-        {project.content.map((section, index) => (
+        {content.map((section, index) => (
           <div key={index} className="space-y-4">
             {section.title && (
               <h2 className="text-title-3">{section.title}</h2>
             )}
-            {section.content}
+            {renderContent(section)}
           </div>
         ))}
       </div>
