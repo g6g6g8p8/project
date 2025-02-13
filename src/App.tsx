@@ -30,7 +30,7 @@ function DesktopSidebar() {
 
   return (
     <aside className="hidden lg:block fixed h-screen w-68 bg-background border-r border-border p-6 overflow-y-auto z-50">
-      <Link to="/" className="text-[20px] leading-[27px] md:text-[32px] md:leading-[36px] font-semibold tracking-[-.021em] block mb-8">
+      <Link to="/" className="text-[22px] leading-[27px] md:text-[27px] md:leading-[32px] font-semibold tracking-[-.021em] block mb-8">
         Giulio Pinotti
       </Link>
       
@@ -104,6 +104,14 @@ function DesktopSidebar() {
               className="opacity-60 hover:opacity-100 transition-opacity"
             >
               <i className="bi bi-behance text-xl"></i>
+            </a>
+            <a
+              href="https://www.youtube.com/@giuliopinotti"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="opacity-60 hover:opacity-100 transition-opacity"
+            >
+              <i className="bi bi-youtube text-xl"></i>
             </a>
             <a
               href="https://soundcloud.com/djpinotti"
@@ -185,7 +193,7 @@ function Home() {
   return (
     <div className="p-5">
       <div className="lg:hidden flex items-center justify-between mb-5">
-        <Link to="/" className="text-[23px] leading-[27px] md:text-[32px] md:leading-[36px] font-semibold tracking-[-.021em]">
+        <Link to="/" className="text-[22px] leading-[27px] md:text-[27px] md:leading-[32px] font-semibold tracking-[-.021em]">
           Giulio Pinotti
         </Link>
         <Link 
@@ -363,7 +371,7 @@ function Contact() {
   return (
     <div className="p-5 max-w-3xl">
       <div className="lg:hidden flex items-center justify-between mb-5">
-        <Link to="/" className="text-[23px] leading-[27px] md:text-[32px] md:leading-[36px] font-semibold tracking-[-.021em]">
+        <Link to="/" className="text-[22px] leading-[27px] md:text-[27px] md:leading-[32px] font-semibold tracking-[-.021em]">
           Giulio Pinotti
         </Link>
         <Link 
@@ -392,9 +400,9 @@ function Contact() {
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-background dark:bg-black text-foreground">
+      <div className="flex min-h-screen bg-background dark:bg-black text-foreground">
         <DesktopSidebar />
-        <main className="lg:ml-68 bg-background dark:bg-black min-h-screen">
+        <main className="flex-1 ml-0 lg:ml-68 min-h-screen">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
