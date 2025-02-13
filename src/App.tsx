@@ -2,16 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink, Link, useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Linkedin as LinkedinIcon, 
-  BehanceSquare as BehanceIcon, 
-  Youtube as YoutubeIcon, 
-  CloudCog as SoundCloudIcon, 
   Filter as FilterIcon, 
   ArrowRight, 
   UserCircle, 
   X as CloseIcon, 
   Share2 
 } from 'lucide-react';
+import { LinkedInIcon, BehanceIcon, SoundCloudIcon } from './components/icons/SocialIcons';
 import { useProjects, ProjectFilters } from './hooks/useProjects';
 import { cn } from './lib/utils';
 import ProjectDetail from './components/ProjectDetail';
@@ -98,7 +95,7 @@ function DesktopSidebar() {
               rel="noopener noreferrer"
               className="opacity-60 hover:opacity-100 transition-opacity"
             >
-              <LinkedinIcon size={20} />
+              <LinkedInIcon size={20} />
             </a>
             <a
               href="https://behance.net/giuliopinotti"
@@ -107,14 +104,6 @@ function DesktopSidebar() {
               className="opacity-60 hover:opacity-100 transition-opacity"
             >
               <BehanceIcon size={20} />
-            </a>
-            <a
-              href="https://youtube.com/@giuliopinotti"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="opacity-60 hover:opacity-100 transition-opacity"
-            >
-              <YoutubeIcon size={20} />
             </a>
             <a
               href="https://soundcloud.com/giuliopinotti"
