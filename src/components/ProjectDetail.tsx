@@ -214,90 +214,92 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div className="lg:grid lg:grid-cols-[40%_60%] lg:gap-12">
-      {/* Left Column - Fixed */}
-      <div className="lg:sticky lg:top-12 lg:h-[calc(100vh-96px)] space-y-8">
-        <button
-          onClick={() => navigate(-1)}
-          className="fixed top-8 right-8 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
-          aria-label="Close project"
-        >
-          <CloseIcon size={20} />
-        </button>
+    <div className="p-5 md:p-8 lg:p-10">
+      <div className="lg:grid lg:grid-cols-[40%_60%] lg:gap-12">
+        {/* Left Column - Fixed */}
+        <div className="lg:sticky lg:top-10 lg:h-[calc(100vh-80px)] space-y-8">
+          <button
+            onClick={() => navigate(-1)}
+            className="fixed top-8 right-8 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
+            aria-label="Close project"
+          >
+            <CloseIcon size={20} />
+          </button>
 
-        {/* Project Card Style */}
-        <div className="relative">
-          <div className="aspect-[3/4] w-full overflow-hidden rounded-2xl">
-            <img 
-              src={project.image_url} 
-              alt={project.title}
-              className="w-full h-full object-cover"
-            />
-            <div 
-              className="absolute inset-0"
-              style={{
-                background: imageColor 
-                  ? `linear-gradient(to top, ${imageColor}99 0%, ${imageColor}00 100%)`
-                  : 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)'
-              }}
-            />
-          </div>
-          
-          <div className="absolute inset-x-0 bottom-0 p-6">
-            <h1 className="text-title-2 text-white mb-2">{project.title}</h1>
-            <p className="text-body text-white/90">{project.description}</p>
+          {/* Project Card Style */}
+          <div className="relative">
+            <div className="aspect-[3/4] w-full overflow-hidden rounded-2xl">
+              <img 
+                src={project.image_url} 
+                alt={project.title}
+                className="w-full h-full object-cover"
+              />
+              <div 
+                className="absolute inset-0"
+                style={{
+                  background: imageColor 
+                    ? `linear-gradient(to top, ${imageColor}99 0%, ${imageColor}00 100%)`
+                    : 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)'
+                }}
+              />
+            </div>
+            
+            <div className="absolute inset-x-0 bottom-0 p-6">
+              <h1 className="text-title-2 text-white mb-2">{project.title}</h1>
+              <p className="text-body text-white/90">{project.description}</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Right Column - Scrollable */}
-      <div className="mt-8 lg:mt-0 space-y-8">
-        {content.map((section, index) => (
-          <div key={index} className="space-y-4">
-            {section.title && (
-              <h2 className="text-title-3">{section.title}</h2>
-            )}
-            {renderContent(section)}
-          </div>
-        ))}
+        {/* Right Column - Scrollable */}
+        <div className="mt-8 lg:mt-0 space-y-8">
+          {content.map((section, index) => (
+            <div key={index} className="space-y-4">
+              {section.title && (
+                <h2 className="text-title-3">{section.title}</h2>
+              )}
+              {renderContent(section)}
+            </div>
+          ))}
 
-        {/* Explore Section */}
-        <div className="mt-16 space-y-5">
-          <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">EXPLORE</h3>
-          <div className="flex flex-wrap gap-2">
-            {project.tags.map((tag, index) => (
+          {/* Explore Section */}
+          <div className="mt-16 space-y-5">
+            <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">EXPLORE</h3>
+            <div className="flex flex-wrap gap-2">
+              {project.tags.map((tag, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleFilter('tag', tag)}
+                  className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
+                >
+                  {tag}
+                </button>
+              ))}
               <button
-                key={index}
-                onClick={() => handleFilter('tag', tag)}
+                onClick={() => handleFilter('client', project.client)}
                 className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
               >
-                {tag}
+                {project.client}
               </button>
-            ))}
+              <button
+                onClick={() => handleFilter('role', project.role)}
+                className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
+              >
+                {project.role}
+              </button>
+            </div>
+          </div>
+
+          {/* Share Button - Mobile Only */}
+          <div className="mt-16 flex items-center justify-center lg:hidden">
             <button
-              onClick={() => handleFilter('client', project.client)}
-              className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
+              onClick={handleShare}
+              className="inline-flex items-center gap-2 px-6 py-3 border border-border hover:bg-border/10 rounded-lg text-callout text-foreground transition-colors"
             >
-              {project.client}
-            </button>
-            <button
-              onClick={() => handleFilter('role', project.role)}
-              className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
-            >
-              {project.role}
+              <Share2 size={18} />
+              Share
             </button>
           </div>
-        </div>
-
-        {/* Share Button */}
-        <div className="mt-16 flex items-center justify-center">
-          <button
-            onClick={handleShare}
-            className="inline-flex items-center gap-2 px-6 py-3 border border-border hover:bg-border/10 rounded-lg text-callout text-foreground transition-colors"
-          >
-            <Share2 size={18} />
-            Share
-          </button>
         </div>
       </div>
     </div>
