@@ -278,21 +278,16 @@ function About() {
   if (!about) return null;
 
   return (
-    <div className="p-5 md:p-8 max-w-3xl mx-auto">
-      <div className="lg:hidden flex items-center justify-between mb-5">
-        <Link to="/" className="text-title-2">
-          {about.name}
-        </Link>
-        <Link
-          to="/"
-          className="fixed top-8 right-8 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
-        >
-          <CloseIcon size={20} />
-        </Link>
-      </div>
+    <div className="p-5 md:p-8 max-w-3xl mx-auto bg-gray-50 dark:bg-background">
+      <Link
+        to="/"
+        className="fixed top-8 right-8 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
+      >
+        <CloseIcon size={20} />
+      </Link>
 
       {/* Profile Section */}
-      <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl p-6 mb-5">
+      <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 mb-5">
         <div className="flex items-center gap-4 mb-4">
           <img 
             src={about.avatar_url} 
@@ -310,18 +305,10 @@ function About() {
       </div>
 
       {/* Short Bio Section */}
-      <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl p-6 mb-5">
+      <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 mb-5">
         <h3 className="text-title-3 mb-4 dark:text-white">Short bio</h3>
         <div className="prose dark:prose-invert">
           <p className="text-body dark:text-white/90">{about.short_bio}</p>
-        </div>
-      </div>
-
-      {/* What I Do Section */}
-      <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl p-6 mb-5">
-        <h3 className="text-title-3 mb-4 dark:text-white">What I do</h3>
-        <div className="prose dark:prose-invert">
-          <p className="text-body dark:text-white/90">{about.what_i_do}</p>
         </div>
       </div>
 
@@ -332,7 +319,7 @@ function About() {
           {about.career_highlights.map((highlight) => (
             <div 
               key={highlight.id}
-              className="bg-gray-100 dark:bg-gray-800 rounded-2xl p-6 flex items-center gap-4"
+              className="bg-white dark:bg-gray-900 rounded-2xl p-6 flex items-center gap-4"
             >
               <img 
                 src={highlight.logo_url} 
@@ -349,15 +336,25 @@ function About() {
         </div>
       </div>
 
+      {/* What I Do Section */}
+      <div className="mt-8 space-y-5">
+        <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">WHAT I DO</h3>
+        <div className="bg-white dark:bg-gray-900 rounded-2xl p-6">
+          <div className="prose dark:prose-invert">
+            <p className="text-body dark:text-white/90">{about.what_i_do}</p>
+          </div>
+        </div>
+      </div>
+
       {/* Brands Section */}
       <div className="mt-8 space-y-5">
         <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">BRANDS I'VE WORKED WITH</h3>
-        <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl p-6">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl p-6">
           <div className="flex flex-wrap gap-2">
             {about.brands.map((brand, index) => (
               <span 
                 key={index}
-                className="px-4 py-2 bg-white/50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90"
+                className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90"
               >
                 {brand}
               </span>
@@ -369,7 +366,7 @@ function About() {
       {/* Awards Section */}
       <div className="mt-8 space-y-5">
         <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">AWARDS</h3>
-        <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl p-6">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl p-6">
           <div className="space-y-2">
             {about.awards.map((award, index) => (
               <p key={index} className="text-body dark:text-white/90">{award}</p>
