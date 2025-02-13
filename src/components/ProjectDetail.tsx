@@ -54,6 +54,28 @@ export default function ProjectDetail() {
     }));
   };
 
+  const handleTouchStart = (e: React.TouchEvent, contentId: string) => {
+    touchStart.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent, contentId: string, totalSlides: number) => {
+    if (touchStart.current === null) return;
+
+    const touchEnd = e.touches[0].clientX;
+    const diff = touchStart.current - touchEnd;
+
+    // Swipe threshold of 50px
+    if (Math.abs(diff) > 50) {
+      const direction = diff > 0 ? 'next' : 'prev';
+      handleSlideChange(contentId, direction, totalSlides);
+      touchStart.current = null;
+    }
+  };
+
+  const handleTouchEnd = () => {
+    touchStart.current = null;
+  };
+
   const renderContent = (content: ProjectContent) => {
     switch (content.type) {
       case 'text':
@@ -75,6 +97,9 @@ export default function ProjectDetail() {
               <div 
                 className="flex transition-transform duration-300 ease-in-out h-full"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                onTouchStart={(e) => handleTouchStart(e, content.id)}
+                onTouchMove={(e) => handleTouchMove(e, content.id, gallery.length)}
+                onTouchEnd={handleTouchEnd}
               >
                 {gallery.map((image, index) => (
                   <img
@@ -122,10 +147,16 @@ export default function ProjectDetail() {
         const video = content.content.video;
         if (!video?.url) return null;
         
+        // Add parameters to hide title and byline
+        const videoUrl = new URL(video.url);
+        videoUrl.searchParams.set('title', '0');
+        videoUrl.searchParams.set('byline', '0');
+        videoUrl.searchParams.set('portrait', '0');
+        
         return (
           <div className="aspect-video rounded-lg overflow-hidden">
             <iframe
-              src={video.url}
+              src={videoUrl.toString()}
               className="w-full h-full"
               allow="autoplay; fullscreen; picture-in-picture"
               allowFullScreen
@@ -234,7 +265,7 @@ export default function ProjectDetail() {
 
             <div className="mt-16 space-y-5">
               <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">EXPLORE</h3>
-              <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
+              <div className="bg-white dark:bg-[#282828] rounded-2xl p-6 -mx-5 md:mx-0">
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag, index) => (
                     <button

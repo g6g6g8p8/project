@@ -310,7 +310,7 @@ function About() {
   if (!about) return null;
 
   return (
-    <div className="p-5 md:p-8 lg:p-12 max-w-7xl mx-auto">
+    <div className="p-5 md:p-8 lg:p-12 max-w-7xl mx-auto bg-[#F7F7F7] dark:bg-black">
       <Link
         to="/"
         className="fixed top-8 right-8 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
