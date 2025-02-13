@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, NavLink, Link, useSearchParams, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, NavLink, Link, useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LinkedinIcon, FenceIcon as BehanceIcon, YoutubeIcon, CloudIcon, FilterIcon, ArrowRight, UserCircle } from 'lucide-react';
+import { LinkedinIcon, FenceIcon as BehanceIcon, YoutubeIcon, CloudIcon, FilterIcon, ArrowRight, UserCircle, CloseIcon } from 'lucide-react';
 import { useProjects, ProjectFilters } from './hooks/useProjects';
 import { cn } from './lib/utils';
 import ProjectDetail from './components/ProjectDetail';
 import { getImageColor } from './lib/utils';
+import { useAbout } from './hooks/useAbout';
 
 function DesktopSidebar() {
   const { projects } = useProjects();
@@ -263,6 +264,29 @@ function Home() {
 }
 
 function About() {
+  const { about, loading } = useAbout();
+  const navigate = useNavigate();
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-foreground"></div>
+      </div>
+    );
+  }
+
+  if (!about) {
+    return (
+      <div className="p-8 max-w-6xl mx-auto">
+        <h1 className="text-title-2 mb-4">Page not found</h1>
+        <Link to="/" className="text-body opacity-60 hover:opacity-100 transition-opacity inline-flex items-center gap-2">
+          <CloseIcon size={20} />
+          Back to home
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="p-8 max-w-3xl">
       <div className="lg:hidden flex items-center justify-between mb-8">
