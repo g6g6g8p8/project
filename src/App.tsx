@@ -230,8 +230,8 @@ function FeaturedProjects() {
 
 function Home() {
   return (
-    <div className="px-6 py-8 md:p-8">
-      <div className="lg:hidden flex items-center justify-between mb-8">
+    <div className="p-5">
+      <div className="lg:hidden flex items-center justify-between mb-5">
         <Link to="/" className="text-title-2">
           Giulio Pinotti
         </Link>
@@ -243,7 +243,7 @@ function Home() {
         </Link>
       </div>
       <FeaturedProjects />
-      <div className="mt-16 max-w-3xl">
+      <div className="mt-5 max-w-3xl">
         <h2 className="text-title-1 mb-8">About</h2>
         <div className="prose">
           <p className="text-body">
