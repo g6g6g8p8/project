@@ -128,7 +128,6 @@ function FeaturedProjects() {
     tag: searchParams.get('tag') || undefined,
     role: searchParams.get('role') || undefined,
   };
-
   const { projects, loading } = useProjects(filters);
   const [imageColors, setImageColors] = useState<Record<number, string>>({});
 
@@ -140,17 +139,16 @@ function FeaturedProjects() {
       }
       setImageColors(colors);
     }
-    
     if (projects.length > 0) {
       loadImageColors();
     }
   }, [projects]);
 
+  const hasFilters = Boolean(filters.client || filters.year || filters.tag || filters.role);
+
   const clearFilters = () => {
     setSearchParams({});
   };
-
-  const hasFilters = Object.values(filters).some(Boolean);
 
   return (
     <div className="space-y-8">
@@ -171,76 +169,10 @@ function FeaturedProjects() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-        {loading ? (
-          <div className="col-span-2 flex items-center justify-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-foreground"></div>
-          </div>
-        ) : projects.length === 0 ? (
-          <div className="col-span-2 flex flex-col items-center justify-center h-64">
-            <p className="text-body opacity-60 mb-4">No projects found</p>
-            <button
-              onClick={clearFilters}
-              className="text-subheadline opacity-60 hover:opacity-100 transition-opacity"
-            >
-              Clear filters
-            </button>
-          </div>
-        ) : (
-          projects.map((project) => (
-            <Link
-              to={`/projects/${project.slug}`}
-              key={project.id}
-              className="group relative overflow-hidden rounded-2xl md:rounded-3xl dark:ring-1 dark:ring-white/10 bg-white dark:bg-transparent shadow-[0_2px_8px_rgba(0,0,0,0.08)] dark:shadow-none transition-all duration-300 hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)] dark:hover:ring-white/20"
-            >
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="relative w-full pb-[133.33%] md:pb-[75%]"
-              >
-                <img
-                  src={project.image_url}
-                  alt={project.title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                <div 
-                  className="absolute inset-0 bg-gradient-to-t"
-                  style={{
-                    background: imageColors[project.id] 
-                      ? `linear-gradient(to top, ${imageColors[project.id]}99 0%, ${imageColors[project.id]}00 100%)`
-                      : 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)'
-                  }}
-                >
-                  <div className="absolute bottom-0 left-0 p-6 text-left max-w-[90%]">
-                    <h3 className="text-title-3 text-white mb-2 leading-tight">
-                      {project.title}
-                    </h3>
-                    <p className="text-callout text-white/90 leading-relaxed">
-                      {project.description}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </Link>
-          ))
-        )}
-      </div>
-
-      <div className="mt-8 max-w-3xl">
-        <h2 className="text-title-1 mb-8">About</h2>
-        <div className="prose">
-          <p className="text-body">
-            Creative Director, Art & Design with 15+ years in advertising, blending strategy,
-            design, and storytelling to inspire and engage.
-          </p>
-          <Link
-            to="/about"
-            className="inline-flex items-center gap-2 mt-6 px-6 py-3 text-foreground border border-border rounded-lg text-callout hover:bg-border/10 transition-colors"
-          >
-            Read More
-            <ArrowRight size={18} />
-          </Link>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {projects.map((project) => (
+          <ProjectCard key={project.id} project={project} imageColor={imageColors[project.id]} />
+        ))}
       </div>
     </div>
   );

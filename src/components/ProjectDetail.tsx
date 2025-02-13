@@ -245,10 +245,10 @@ export default function ProjectDetail() {
             />
           </div>
           
-          <div className="absolute inset-x-0 bottom-0 p-8">
+          <div className="absolute inset-x-0 bottom-0 p-6">
             <div className="max-w-6xl mx-auto">
               <h1 className="text-title-2 md:text-title-1 text-white mb-2">{project.title}</h1>
-              <p className="text-callout md:text-body text-white/90 max-w-2xl leading-relaxed">{project.description}</p>
+              <p className="text-callout md:text-body text-white/90 max-w-[90%] leading-relaxed">{project.description}</p>
             </div>
           </div>
         </div>
@@ -265,7 +265,7 @@ export default function ProjectDetail() {
 
             <div className="mt-16 space-y-5">
               <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">EXPLORE</h3>
-              <div className="bg-white dark:bg-[#282828] rounded-2xl p-6 -mx-5 md:mx-0">
+              <div className="-mx-5 md:mx-0">
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag, index) => (
                     <button
