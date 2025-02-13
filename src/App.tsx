@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink, Link, useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LinkedinIcon, BehanceIcon, YoutubeIcon, CloudCog as SoundCloudIcon, FilterIcon, ArrowRight, UserCircle, X as CloseIcon, Share2 } from 'lucide-react';
+import { 
+  Linkedin as LinkedinIcon, 
+  BehanceSquare as BehanceIcon, 
+  Youtube as YoutubeIcon, 
+  CloudCog as SoundCloudIcon, 
+  Filter as FilterIcon, 
+  ArrowRight, 
+  UserCircle, 
+  X as CloseIcon, 
+  Share2 
+} from 'lucide-react';
 import { useProjects, ProjectFilters } from './hooks/useProjects';
 import { cn } from './lib/utils';
 import ProjectDetail from './components/ProjectDetail';
