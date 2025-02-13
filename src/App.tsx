@@ -5,6 +5,7 @@ import { LinkedinIcon, FenceIcon as BehanceIcon, YoutubeIcon, CloudIcon, FilterI
 import { useProjects, ProjectFilters } from './hooks/useProjects';
 import { cn } from './lib/utils';
 import ProjectDetail from './components/ProjectDetail';
+import ProjectCard from './components/ProjectCard';
 import { getImageColor } from './lib/utils';
 import { useAbout } from './hooks/useAbout';
 
