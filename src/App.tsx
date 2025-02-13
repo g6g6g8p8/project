@@ -142,9 +142,9 @@ function About() {
       <div className="p-5 md:p-8 lg:p-12">
         <button
           onClick={() => navigate(-1)}
-          className="fixed top-8 right-8 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
+          className="fixed lg:absolute top-8 right-8 z-50 w-9 h-9 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
         >
-          <CloseIcon size={20} />
+          <CloseIcon size={17} />
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">

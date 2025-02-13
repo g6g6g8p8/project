@@ -219,23 +219,62 @@ export default function ProjectDetail() {
       <div className="lg:sticky lg:top-12 lg:h-[calc(100vh-96px)] space-y-8">
         <button
           onClick={() => navigate(-1)}
-          className="fixed top-8 right-8 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
+          className="fixed lg:absolute top-8 right-8 z-50 w-9 h-9 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
           aria-label="Close project"
         >
-          <CloseIcon size={20} />
+          <CloseIcon size={17} />
         </button>
 
-        <div className="aspect-[4/3] overflow-hidden rounded-2xl bg-border/10">
-          <img 
-            src={project.image_url} 
-            alt={project.title}
-            className="w-full h-full object-cover"
-          />
+        {/* Project Card Style */}
+        <div className="relative">
+          <div className="aspect-[3/4] w-full overflow-hidden rounded-2xl">
+            <img 
+              src={project.image_url} 
+              alt={project.title}
+              className="w-full h-full object-cover"
+            />
+            <div 
+              className="absolute inset-0"
+              style={{
+                background: imageColor 
+                  ? `linear-gradient(to top, ${imageColor}99 0%, ${imageColor}00 100%)`
+                  : 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)'
+              }}
+            />
+          </div>
+          
+          <div className="absolute inset-x-0 bottom-0 p-6">
+            <h1 className="text-title-2 text-white mb-2">{project.title}</h1>
+            <p className="text-body text-white/90">{project.description}</p>
+          </div>
         </div>
 
-        <div className="space-y-4">
-          <h1 className="text-title-1">{project.title}</h1>
-          <p className="text-body opacity-60">{project.description}</p>
+        {/* Explore Section */}
+        <div className="space-y-5">
+          <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">EXPLORE</h3>
+          <div className="flex flex-wrap gap-2">
+            {project.tags.map((tag, index) => (
+              <button
+                key={index}
+                onClick={() => handleFilter('tag', tag)}
+                className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
+              >
+                {tag}
+              </button>
+            ))}
+            <button
+              onClick={() => handleFilter('client', project.client)}
+              className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
+            >
+              {project.client}
+            </button>
+            <button
+              onClick={() => handleFilter('role', project.role)}
+              className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
+            >
+              {project.role}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -249,6 +288,17 @@ export default function ProjectDetail() {
             {renderContent(section)}
           </div>
         ))}
+
+        {/* Share Button */}
+        <div className="mt-16 flex items-center justify-center">
+          <button
+            onClick={handleShare}
+            className="inline-flex items-center gap-2 px-6 py-3 border border-border hover:bg-border/10 rounded-lg text-callout text-foreground transition-colors"
+          >
+            <Share2 size={18} />
+            Share
+          </button>
+        </div>
       </div>
     </div>
   );
