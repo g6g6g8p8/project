@@ -400,16 +400,18 @@ function Contact() {
 function App() {
   return (
     <Router>
-      <div className="flex min-h-screen bg-background dark:bg-black text-foreground">
+      <div className="min-h-screen bg-background dark:bg-black text-foreground">
         <DesktopSidebar />
-        <main className="flex-1 w-full lg:pl-68 min-h-screen">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/projects/:slug" element={<ProjectDetail />} />
-          </Routes>
-        </main>
+        <div className="lg:ml-68">
+          <main className="min-h-screen">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/projects/:slug" element={<ProjectDetail />} />
+            </Routes>
+          </main>
+        </div>
       </div>
     </Router>
   );
