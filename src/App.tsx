@@ -229,6 +229,9 @@ function FeaturedProjects() {
 }
 
 function Home() {
+  const { about } = useAbout();
+  const { projects } = useProjects();
+
   return (
     <div className="p-5">
       <div className="lg:hidden flex items-center justify-between mb-5">
@@ -237,9 +240,17 @@ function Home() {
         </Link>
         <Link 
           to="/about"
-          className="w-10 h-10 flex items-center justify-center rounded-full bg-border/10 hover:bg-border/20 transition-colors"
+          className="w-10 h-10 flex items-center justify-center rounded-full bg-border/10 hover:bg-border/20 transition-colors overflow-hidden"
         >
-          <UserCircle size={24} className="opacity-60" />
+          {about?.avatar_url ? (
+            <img 
+              src={about.avatar_url} 
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <UserCircle size={24} className="opacity-60" />
+          )}
         </Link>
       </div>
       <FeaturedProjects />
@@ -278,7 +289,7 @@ function About() {
   if (!about) return null;
 
   return (
-    <div className="p-5 md:p-8 max-w-3xl mx-auto bg-gray-50 dark:bg-background">
+    <div className="p-5 md:p-8 max-w-3xl mx-auto bg-gray-50 dark:bg-black">
       <Link
         to="/"
         className="fixed top-8 right-8 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
@@ -287,7 +298,7 @@ function About() {
       </Link>
 
       {/* Profile Section */}
-      <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 mb-5">
+      <div className="bg-white dark:bg-[#282828] rounded-2xl p-6 mb-5">
         <div className="flex items-center gap-4 mb-4">
           <img 
             src={about.avatar_url} 
@@ -305,7 +316,7 @@ function About() {
       </div>
 
       {/* Short Bio Section */}
-      <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 mb-5">
+      <div className="bg-white dark:bg-[#282828] rounded-2xl p-6 mb-5">
         <h3 className="text-title-3 mb-4 dark:text-white">Short bio</h3>
         <div className="prose dark:prose-invert">
           <p className="text-body dark:text-white/90">{about.short_bio}</p>
@@ -319,7 +330,7 @@ function About() {
           {about.career_highlights.map((highlight) => (
             <div 
               key={highlight.id}
-              className="bg-white dark:bg-gray-900 rounded-2xl p-6 flex items-center gap-4"
+              className="bg-white dark:bg-[#282828] rounded-2xl p-6 flex items-center gap-4"
             >
               <img 
                 src={highlight.logo_url} 
@@ -339,7 +350,7 @@ function About() {
       {/* What I Do Section */}
       <div className="mt-8 space-y-5">
         <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">WHAT I DO</h3>
-        <div className="bg-white dark:bg-gray-900 rounded-2xl p-6">
+        <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
           <div className="prose dark:prose-invert">
             <p className="text-body dark:text-white/90">{about.what_i_do}</p>
           </div>
@@ -349,7 +360,7 @@ function About() {
       {/* Brands Section */}
       <div className="mt-8 space-y-5">
         <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">BRANDS I'VE WORKED WITH</h3>
-        <div className="bg-white dark:bg-gray-900 rounded-2xl p-6">
+        <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
           <div className="flex flex-wrap gap-2">
             {about.brands.map((brand, index) => (
               <span 
@@ -366,7 +377,7 @@ function About() {
       {/* Awards Section */}
       <div className="mt-8 space-y-5">
         <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">AWARDS</h3>
-        <div className="bg-white dark:bg-gray-900 rounded-2xl p-6">
+        <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
           <div className="space-y-2">
             {about.awards.map((award, index) => (
               <p key={index} className="text-body dark:text-white/90">{award}</p>
@@ -411,7 +422,7 @@ function Contact() {
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-background text-foreground">
+      <div className="min-h-screen bg-background dark:bg-black text-foreground">
         <DesktopSidebar />
         <main className="lg:ml-80">
           <Routes>

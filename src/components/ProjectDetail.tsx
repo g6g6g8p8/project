@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { X as CloseIcon, Share2, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -12,6 +12,7 @@ export default function ProjectDetail() {
   const navigate = useNavigate();
   const [imageColor, setImageColor] = useState<string>('');
   const [currentSlide, setCurrentSlide] = useState<Record<string, number>>({});
+  const touchStart = useRef<number | null>(null);
 
   useEffect(() => {
     if (project?.image_url) {
@@ -182,7 +183,7 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div>
+    <div className="bg-background dark:bg-black">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
