@@ -245,16 +245,18 @@ export default function ProjectDetail() {
             />
           </div>
           
-          <div className="absolute inset-x-0 bottom-0 p-6">
-            <div className="max-w-6xl mx-auto">
+          <div className="absolute inset-x-0 bottom-0 px-5 md:px-8 lg:px-12 py-6">
+            <div className="max-w-none">
               <h1 className="text-title-2 md:text-title-1 text-white mb-2">{project.title}</h1>
-              <p className="text-callout md:text-body text-white/90 max-w-[90%] leading-relaxed">{project.description}</p>
+              <p className="text-callout md:text-body text-white/90 max-w-[90%] leading-loose">
+                {project.description}
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="p-5 md:p-8">
-          <div className="max-w-6xl mx-auto">
+        <div className="px-5 md:px-8 lg:px-12 py-8 md:py-16">
+          <div className="max-w-none">
             <div className="space-y-8 md:space-y-16">
               {content?.map((item) => (
                 <div key={item.id} className="max-w-4xl">

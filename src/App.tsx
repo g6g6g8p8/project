@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink, Link, useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LinkedinIcon, FenceIcon as BehanceIcon, YoutubeIcon, CloudIcon, FilterIcon, ArrowRight, UserCircle, X as CloseIcon, Share2 } from 'lucide-react';
+import { LinkedinIcon, BehanceIcon, YoutubeIcon, CloudCog as SoundCloudIcon, FilterIcon, ArrowRight, UserCircle, X as CloseIcon, Share2 } from 'lucide-react';
 import { useProjects, ProjectFilters } from './hooks/useProjects';
 import { cn } from './lib/utils';
 import ProjectDetail from './components/ProjectDetail';
@@ -107,12 +107,12 @@ function DesktopSidebar() {
               <YoutubeIcon size={20} />
             </a>
             <a
-              href="https://soundcloud.com/djpinotti"
+              href="https://soundcloud.com/giuliopinotti"
               target="_blank"
               rel="noopener noreferrer"
-              className="opacity-60 hover:opacity-100 transition-opacity"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-border/10 hover:bg-border/20 transition-colors"
             >
-              <CloudIcon size={20} />
+              <SoundCloudIcon size={18} className="opacity-60" />
             </a>
           </div>
         </div>
