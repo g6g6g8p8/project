@@ -265,7 +265,7 @@ export default function ProjectDetail() {
 
             <div className="mt-16 space-y-5">
               <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">EXPLORE</h3>
-              <div className="-mx-5 md:mx-0">
+              <div className="md:mx-0">
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag, index) => (
                     <button

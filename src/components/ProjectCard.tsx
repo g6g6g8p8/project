@@ -30,7 +30,7 @@ export default function ProjectCard({ project, imageColor }: ProjectCardProps) {
         <h3 className="text-title-3 text-white mb-2">
           {project.title}
         </h3>
-        <p className="text-callout text-white/90 leading-relaxed">
+        <p className="text-callout text-white/90 leading-loose">
           {project.description}
         </p>
       </div>

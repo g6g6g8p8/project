@@ -395,7 +395,7 @@ function App() {
     <Router>
       <div className="min-h-screen bg-background dark:bg-black text-foreground">
         <DesktopSidebar />
-        <main className="lg:ml-80 bg-[#F7F7F7] dark:bg-black min-h-screen">
+        <main className="lg:ml-80 bg-background dark:bg-black min-h-screen">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
