@@ -20,16 +20,16 @@ export function useAbout() {
 
         if (aboutError) throw aboutError;
 
-        const { data: experienceData, error: experienceError } = await supabase
-          .from('experiences')
+        const { data: careerData, error: careerError } = await supabase
+          .from('career_highlights')
           .select('*')
           .order('created_at', { ascending: false });
 
-        if (experienceError) throw experienceError;
+        if (careerError) throw careerError;
 
         setAbout({
           ...aboutData,
-          experiences: experienceData
+          career_highlights: careerData
         });
       } catch (error) {
         console.error('Error fetching about data:', error);

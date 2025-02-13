@@ -44,6 +44,17 @@ export interface About {
   title: string;
   avatar_url: string;
   short_bio: string;
-  side_projects: string;
-  experiences: Experience[];
+  what_i_do: string;
+  brands: string[];
+  awards: string[];
+  career_highlights: CareerHighlight[];
+}
+
+export interface CareerHighlight {
+  id: number;
+  company: string;
+  role: string;
+  period: string;
+  logo_url: string;
+  created_at: string;
 }

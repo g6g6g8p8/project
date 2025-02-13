@@ -283,16 +283,16 @@ function About() {
         <Link to="/" className="text-title-2">
           {about.name}
         </Link>
-        <button 
-          onClick={() => navigate(-1)}
-          className="w-10 h-10 flex items-center justify-center rounded-full bg-border/10 hover:bg-border/20 transition-colors"
+        <Link
+          to="/"
+          className="fixed top-8 right-8 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
         >
-          <CloseIcon size={24} className="opacity-60" />
-        </button>
+          <CloseIcon size={20} />
+        </Link>
       </div>
 
       {/* Profile Section */}
-      <div className="bg-white dark:bg-foreground/5 rounded-2xl p-6 mb-5">
+      <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl p-6 mb-5">
         <div className="flex items-center gap-4 mb-4">
           <img 
             src={about.avatar_url} 
@@ -300,52 +300,81 @@ function About() {
             className="w-16 h-16 rounded-full"
           />
           <div>
-            <h1 className="text-title-2">{about.name}</h1>
-            <a href={`mailto:${about.email}`} className="text-body opacity-60">
+            <h1 className="text-title-2 dark:text-white">{about.name}</h1>
+            <a href={`mailto:${about.email}`} className="text-body opacity-60 dark:text-white/60">
               {about.email}
             </a>
           </div>
         </div>
-        <h2 className="text-title-3">{about.title}</h2>
+        <h2 className="text-title-3 dark:text-white">{about.title}</h2>
       </div>
 
       {/* Short Bio Section */}
-      <div className="bg-white dark:bg-foreground/5 rounded-2xl p-6 mb-5">
-        <h3 className="text-title-3 mb-4">Short bio</h3>
-        <div className="prose">
-          <p className="text-body">{about.short_bio}</p>
+      <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl p-6 mb-5">
+        <h3 className="text-title-3 mb-4 dark:text-white">Short bio</h3>
+        <div className="prose dark:prose-invert">
+          <p className="text-body dark:text-white/90">{about.short_bio}</p>
         </div>
       </div>
 
-      {/* Side Projects Section */}
-      <div className="bg-white dark:bg-foreground/5 rounded-2xl p-6 mb-5">
-        <h3 className="text-title-3 mb-4">Side projects</h3>
-        <div className="prose">
-          <p className="text-body">{about.side_projects}</p>
+      {/* What I Do Section */}
+      <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl p-6 mb-5">
+        <h3 className="text-title-3 mb-4 dark:text-white">What I do</h3>
+        <div className="prose dark:prose-invert">
+          <p className="text-body dark:text-white/90">{about.what_i_do}</p>
         </div>
       </div>
 
-      {/* Work Experience Section */}
+      {/* Career Highlights Section */}
       <div className="space-y-5">
-        <h3 className="text-subheadline font-medium opacity-60">WORK EXPERIENCE</h3>
+        <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">CAREER HIGHLIGHTS</h3>
         <div className="space-y-5">
-          {about.experiences.map((experience) => (
+          {about.career_highlights.map((highlight) => (
             <div 
-              key={experience.id}
-              className="bg-white dark:bg-foreground/5 rounded-2xl p-6 flex items-center gap-4"
+              key={highlight.id}
+              className="bg-gray-100 dark:bg-gray-800 rounded-2xl p-6 flex items-center gap-4"
             >
               <img 
-                src={experience.logo_url} 
-                alt={experience.company}
+                src={highlight.logo_url} 
+                alt={highlight.company}
                 className="w-16 h-16 rounded-2xl bg-border/10"
               />
               <div>
-                <h4 className="text-title-3">{experience.role}</h4>
-                <p className="text-headline">{experience.company}</p>
-                <p className="text-body opacity-60">{experience.period}</p>
+                <h4 className="text-title-3 dark:text-white">{highlight.role}</h4>
+                <p className="text-headline dark:text-white/90">{highlight.company}</p>
+                <p className="text-body opacity-60 dark:text-white/60">{highlight.period}</p>
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Brands Section */}
+      <div className="mt-8 space-y-5">
+        <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">BRANDS I'VE WORKED WITH</h3>
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl p-6">
+          <div className="flex flex-wrap gap-2">
+            {about.brands.map((brand, index) => (
+              <span 
+                key={index}
+                className="px-4 py-2 bg-white/50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90"
+              >
+                {brand}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Awards Section */}
+      <div className="mt-8 space-y-5">
+        <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">AWARDS</h3>
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl p-6">
+          <div className="space-y-2">
+            {about.awards.map((award, index) => (
+              <p key={index} className="text-body dark:text-white/90">{award}</p>
+            ))}
+          </div>
         </div>
       </div>
     </div>
