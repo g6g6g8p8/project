@@ -32,8 +32,18 @@ export interface ProjectContent {
 export interface Experience {
   id: number;
   company: string;
-  position: string;
+  role: string;
   period: string;
-  description: string;
-  technologies: string[];
+  logo_url: string;
+}
+
+export interface About {
+  id: number;
+  name: string;
+  email: string;
+  title: string;
+  avatar_url: string;
+  short_bio: string;
+  side_projects: string;
+  experiences: Experience[];
 }

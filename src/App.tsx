@@ -269,43 +269,84 @@ function About() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
+      <div className="flex items-center justify-center h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-foreground"></div>
       </div>
     );
   }
 
-  if (!about) {
-    return (
-      <div className="p-8 max-w-6xl mx-auto">
-        <h1 className="text-title-2 mb-4">Page not found</h1>
-        <Link to="/" className="text-body opacity-60 hover:opacity-100 transition-opacity inline-flex items-center gap-2">
-          <CloseIcon size={20} />
-          Back to home
-        </Link>
-      </div>
-    );
-  }
+  if (!about) return null;
 
   return (
-    <div className="p-8 max-w-3xl">
-      <div className="lg:hidden flex items-center justify-between mb-8">
+    <div className="p-5 md:p-8 max-w-3xl mx-auto">
+      <div className="lg:hidden flex items-center justify-between mb-5">
         <Link to="/" className="text-title-2">
-          Giulio Pinotti
+          {about.name}
         </Link>
-        <Link 
-          to="/about"
+        <button 
+          onClick={() => navigate(-1)}
           className="w-10 h-10 flex items-center justify-center rounded-full bg-border/10 hover:bg-border/20 transition-colors"
         >
-          <UserCircle size={24} className="opacity-60" />
-        </Link>
+          <CloseIcon size={24} className="opacity-60" />
+        </button>
       </div>
-      <h2 className="text-title-1 mb-8">About</h2>
-      <div className="prose">
-        <p className="text-body">
-          Creative Director, Art & Design with 15+ years in advertising, blending strategy,
-          design, and storytelling to inspire and engage.
-        </p>
+
+      {/* Profile Section */}
+      <div className="bg-white dark:bg-foreground/5 rounded-2xl p-6 mb-5">
+        <div className="flex items-center gap-4 mb-4">
+          <img 
+            src={about.avatar_url} 
+            alt=""
+            className="w-16 h-16 rounded-full"
+          />
+          <div>
+            <h1 className="text-title-2">{about.name}</h1>
+            <a href={`mailto:${about.email}`} className="text-body opacity-60">
+              {about.email}
+            </a>
+          </div>
+        </div>
+        <h2 className="text-title-3">{about.title}</h2>
+      </div>
+
+      {/* Short Bio Section */}
+      <div className="bg-white dark:bg-foreground/5 rounded-2xl p-6 mb-5">
+        <h3 className="text-title-3 mb-4">Short bio</h3>
+        <div className="prose">
+          <p className="text-body">{about.short_bio}</p>
+        </div>
+      </div>
+
+      {/* Side Projects Section */}
+      <div className="bg-white dark:bg-foreground/5 rounded-2xl p-6 mb-5">
+        <h3 className="text-title-3 mb-4">Side projects</h3>
+        <div className="prose">
+          <p className="text-body">{about.side_projects}</p>
+        </div>
+      </div>
+
+      {/* Work Experience Section */}
+      <div className="space-y-5">
+        <h3 className="text-subheadline font-medium opacity-60">WORK EXPERIENCE</h3>
+        <div className="space-y-5">
+          {about.experiences.map((experience) => (
+            <div 
+              key={experience.id}
+              className="bg-white dark:bg-foreground/5 rounded-2xl p-6 flex items-center gap-4"
+            >
+              <img 
+                src={experience.logo_url} 
+                alt={experience.company}
+                className="w-16 h-16 rounded-2xl bg-border/10"
+              />
+              <div>
+                <h4 className="text-title-3">{experience.role}</h4>
+                <p className="text-headline">{experience.company}</p>
+                <p className="text-body opacity-60">{experience.period}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
