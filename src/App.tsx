@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink, Link, useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LinkedinIcon, FenceIcon as BehanceIcon, YoutubeIcon, CloudIcon, FilterIcon, ArrowRight, UserCircle, X as CloseIcon } from 'lucide-react';
+import { LinkedinIcon, FenceIcon as BehanceIcon, YoutubeIcon, CloudIcon, FilterIcon, ArrowRight, UserCircle, X as CloseIcon, Share2 } from 'lucide-react';
 import { useProjects, ProjectFilters } from './hooks/useProjects';
 import { cn } from './lib/utils';
 import ProjectDetail from './components/ProjectDetail';
@@ -22,7 +22,7 @@ function DesktopSidebar() {
 
   return (
     <aside className="hidden lg:block fixed h-screen w-80 bg-background border-r border-border p-6 overflow-y-auto">
-      <Link to="/" className="text-title-2 block mb-8">
+      <Link to="/" className="text-title-3 md:text-title-2 block mb-8">
         Giulio Pinotti
       </Link>
       
@@ -235,7 +235,7 @@ function Home() {
   return (
     <div className="p-5">
       <div className="lg:hidden flex items-center justify-between mb-5">
-        <Link to="/" className="text-title-2">
+        <Link to="/" className="text-title-3 md:text-title-2">
           Giulio Pinotti
         </Link>
         <Link 
@@ -278,6 +278,25 @@ function About() {
   const { about, loading } = useAbout();
   const navigate = useNavigate();
 
+  const handleShare = async () => {
+    const shareData = {
+      title: about?.name || 'About',
+      text: about?.short_bio || '',
+      url: window.location.href,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        alert('Link copied to clipboard!');
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -289,7 +308,7 @@ function About() {
   if (!about) return null;
 
   return (
-    <div className="p-5 md:p-8 max-w-3xl mx-auto bg-gray-50 dark:bg-black">
+    <div className="p-5 md:p-8 lg:p-12 max-w-7xl mx-auto">
       <Link
         to="/"
         className="fixed top-8 right-8 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
@@ -297,93 +316,110 @@ function About() {
         <CloseIcon size={20} />
       </Link>
 
-      {/* Profile Section */}
-      <div className="bg-white dark:bg-[#282828] rounded-2xl p-6 mb-5">
-        <div className="flex items-center gap-4 mb-4">
-          <img 
-            src={about.avatar_url} 
-            alt=""
-            className="w-16 h-16 rounded-full"
-          />
-          <div>
-            <h1 className="text-title-2 dark:text-white">{about.name}</h1>
-            <a href={`mailto:${about.email}`} className="text-body opacity-60 dark:text-white/60">
-              {about.email}
-            </a>
-          </div>
-        </div>
-        <h2 className="text-title-3 dark:text-white">{about.title}</h2>
-      </div>
-
-      {/* Short Bio Section */}
-      <div className="bg-white dark:bg-[#282828] rounded-2xl p-6 mb-5">
-        <h3 className="text-title-3 mb-4 dark:text-white">Short bio</h3>
-        <div className="prose dark:prose-invert">
-          <p className="text-body dark:text-white/90">{about.short_bio}</p>
-        </div>
-      </div>
-
-      {/* Career Highlights Section */}
-      <div className="space-y-5">
-        <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">CAREER HIGHLIGHTS</h3>
-        <div className="space-y-5">
-          {about.career_highlights.map((highlight) => (
-            <div 
-              key={highlight.id}
-              className="bg-white dark:bg-[#282828] rounded-2xl p-6 flex items-center gap-4"
-            >
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="space-y-8">
+          {/* Profile Section */}
+          <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
+            <div className="flex items-center gap-4 mb-4">
               <img 
-                src={highlight.logo_url} 
-                alt={highlight.company}
-                className="w-16 h-16 rounded-2xl bg-border/10"
+                src={about.avatar_url} 
+                alt=""
+                className="w-16 h-16 rounded-full"
               />
               <div>
-                <h4 className="text-title-3 dark:text-white">{highlight.role}</h4>
-                <p className="text-headline dark:text-white/90">{highlight.company}</p>
-                <p className="text-body opacity-60 dark:text-white/60">{highlight.period}</p>
+                <h1 className="text-title-2 dark:text-white">{about.name}</h1>
+                <a href={`mailto:${about.email}`} className="text-body opacity-60 dark:text-white/60">
+                  {about.email}
+                </a>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
+            <h2 className="text-title-3 dark:text-white">{about.title}</h2>
+          </div>
 
-      {/* What I Do Section */}
-      <div className="mt-8 space-y-5">
-        <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">WHAT I DO</h3>
-        <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
-          <div className="prose dark:prose-invert">
-            <p className="text-body dark:text-white/90">{about.what_i_do}</p>
+          {/* Short Bio Section */}
+          <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
+            <h3 className="text-title-3 mb-4 dark:text-white">Short bio</h3>
+            <div className="prose dark:prose-invert">
+              <p className="text-body dark:text-white/90">{about.short_bio}</p>
+            </div>
+          </div>
+
+          {/* What I Do Section */}
+          <div className="space-y-5">
+            <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">WHAT I DO</h3>
+            <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
+              <div className="prose dark:prose-invert">
+                <p className="text-body dark:text-white/90">{about.what_i_do}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-8">
+          {/* Career Highlights Section */}
+          <div className="space-y-5">
+            <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">CAREER HIGHLIGHTS</h3>
+            <div className="space-y-5">
+              {about.career_highlights.map((highlight) => (
+                <div 
+                  key={highlight.id}
+                  className="bg-white dark:bg-[#282828] rounded-2xl p-6 flex items-center gap-4"
+                >
+                  <img 
+                    src={highlight.logo_url} 
+                    alt={highlight.company}
+                    className="w-16 h-16 rounded-2xl bg-border/10"
+                  />
+                  <div>
+                    <h4 className="text-title-3 dark:text-white">{highlight.role}</h4>
+                    <p className="text-headline dark:text-white/90">{highlight.company}</p>
+                    <p className="text-body opacity-60 dark:text-white/60">{highlight.period}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Brands Section */}
+          <div className="space-y-5">
+            <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">BRANDS I'VE WORKED WITH</h3>
+            <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
+              <div className="flex flex-wrap gap-2">
+                {about.brands.map((brand, index) => (
+                  <span 
+                    key={index}
+                    className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90"
+                  >
+                    {brand}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Awards Section */}
+          <div className="space-y-5">
+            <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">AWARDS</h3>
+            <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
+              <div className="space-y-2">
+                {about.awards.map((award, index) => (
+                  <p key={index} className="text-body dark:text-white/90">{award}</p>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Brands Section */}
-      <div className="mt-8 space-y-5">
-        <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">BRANDS I'VE WORKED WITH</h3>
-        <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
-          <div className="flex flex-wrap gap-2">
-            {about.brands.map((brand, index) => (
-              <span 
-                key={index}
-                className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90"
-              >
-                {brand}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Awards Section */}
-      <div className="mt-8 space-y-5">
-        <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">AWARDS</h3>
-        <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
-          <div className="space-y-2">
-            {about.awards.map((award, index) => (
-              <p key={index} className="text-body dark:text-white/90">{award}</p>
-            ))}
-          </div>
-        </div>
+      {/* Share Button */}
+      <div className="mt-16 flex items-center justify-center">
+        <button
+          onClick={handleShare}
+          className="inline-flex items-center gap-2 px-6 py-3 border border-border hover:bg-border/10 rounded-lg text-callout text-foreground transition-colors"
+        >
+          <Share2 size={18} />
+          Share
+        </button>
       </div>
     </div>
   );
@@ -393,7 +429,7 @@ function Contact() {
   return (
     <div className="p-5 max-w-3xl">
       <div className="lg:hidden flex items-center justify-between mb-5">
-        <Link to="/" className="text-title-2">
+        <Link to="/" className="text-title-3 md:text-title-2">
           Giulio Pinotti
         </Link>
         <Link 
