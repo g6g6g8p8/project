@@ -22,7 +22,7 @@ function DesktopSidebar() {
 
   return (
     <aside className="hidden lg:block fixed h-screen w-80 bg-background border-r border-border p-6 overflow-y-auto">
-      <Link to="/" className="text-title-3 md:text-title-2 block mb-8">
+      <Link to="/" className="text-[23px] leading-[27px] md:text-[32px] md:leading-[36px] font-semibold tracking-[-.021em] block mb-8">
         Giulio Pinotti
       </Link>
       
@@ -253,7 +253,7 @@ function Home() {
   return (
     <div className="p-5">
       <div className="lg:hidden flex items-center justify-between mb-5">
-        <Link to="/" className="text-title-3 md:text-title-2">
+        <Link to="/" className="text-[23px] leading-[27px] md:text-[32px] md:leading-[36px] font-semibold tracking-[-.021em]">
           Giulio Pinotti
         </Link>
         <Link 
@@ -311,12 +311,12 @@ function About() {
 
   return (
     <div className="p-5 md:p-8 lg:p-12 max-w-7xl mx-auto bg-[#F7F7F7] dark:bg-black">
-      <Link
-        to="/"
+      <button
+        onClick={() => navigate(-1)}
         className="fixed top-8 right-8 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
       >
         <CloseIcon size={20} />
-      </Link>
+      </button>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="space-y-8">
@@ -431,7 +431,7 @@ function Contact() {
   return (
     <div className="p-5 max-w-3xl">
       <div className="lg:hidden flex items-center justify-between mb-5">
-        <Link to="/" className="text-title-3 md:text-title-2">
+        <Link to="/" className="text-[23px] leading-[27px] md:text-[32px] md:leading-[36px] font-semibold tracking-[-.021em]">
           Giulio Pinotti
         </Link>
         <Link 
@@ -462,7 +462,7 @@ function App() {
     <Router>
       <div className="min-h-screen bg-background dark:bg-black text-foreground">
         <DesktopSidebar />
-        <main className="lg:ml-80">
+        <main className="lg:ml-80 bg-[#F7F7F7] dark:bg-black min-h-screen">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

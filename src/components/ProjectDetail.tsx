@@ -221,12 +221,12 @@ export default function ProjectDetail() {
         transition={{ duration: 0.4 }}
         className="relative"
       >
-        <Link
-          to="/"
+        <button
+          onClick={() => navigate(-1)}
           className="fixed top-8 right-8 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
         >
           <CloseIcon size={20} />
-        </Link>
+        </button>
 
         <div className="relative">
           <div className="md:aspect-[21/9] aspect-[3/4] w-full shadow-[0_2px_8px_rgba(0,0,0,0.092)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)] dark:shadow-none transition-shadow">
