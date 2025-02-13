@@ -214,13 +214,9 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div className="bg-background dark:bg-black">
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4 }}
-        className="relative"
-      >
+    <div className="lg:grid lg:grid-cols-2 lg:gap-12">
+      {/* Left Column - Fixed */}
+      <div className="lg:sticky lg:top-12 lg:h-[calc(100vh-96px)] space-y-8">
         <button
           onClick={() => navigate(-1)}
           className="fixed top-8 right-8 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
@@ -228,84 +224,31 @@ export default function ProjectDetail() {
           <CloseIcon size={20} />
         </button>
 
-        <div className="relative">
-          <div className="md:aspect-[21/9] aspect-[3/4] w-full shadow-[0_2px_8px_rgba(0,0,0,0.092)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)] dark:shadow-none transition-shadow">
-            <img
-              src={project.image_url}
-              alt={project.title}
-              className="w-full h-full object-cover"
-            />
-            <div 
-              className="absolute inset-0"
-              style={{
-                background: imageColor 
-                  ? `linear-gradient(to top, ${imageColor}99 0%, ${imageColor}00 100%)`
-                  : 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)'
-              }}
-            />
-          </div>
-          
-          <div className="absolute inset-x-0 bottom-0 px-5 md:px-8 lg:px-12 py-6">
-            <div className="max-w-none">
-              <h1 className="text-title-2 md:text-title-1 text-white mb-2">{project.title}</h1>
-              <p className="text-callout md:text-body text-white/90 max-w-[90%] leading-loose">
-                {project.description}
-              </p>
-            </div>
-          </div>
+        <div className="aspect-[4/3] overflow-hidden rounded-2xl bg-border/10">
+          <img 
+            src={project.image_url} 
+            alt={project.title}
+            className="w-full h-full object-cover"
+          />
         </div>
 
-        <div className="px-5 md:px-8 lg:px-12 py-8 md:py-16">
-          <div className="max-w-none">
-            <div className="space-y-8 md:space-y-16">
-              {content?.map((item) => (
-                <div key={item.id} className="max-w-4xl">
-                  {renderContent(item)}
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-16 space-y-5">
-              <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">EXPLORE</h3>
-              <div className="md:mx-0">
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handleFilter('tag', tag)}
-                      className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                  <button
-                    onClick={() => handleFilter('client', project.client)}
-                    className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
-                  >
-                    {project.client}
-                  </button>
-                  <button
-                    onClick={() => handleFilter('role', project.role)}
-                    className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
-                  >
-                    {project.role}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-16 flex items-center justify-center">
-              <button
-                onClick={handleShare}
-                className="inline-flex items-center gap-2 px-6 py-3 border border-border hover:bg-border/10 rounded-lg text-callout text-foreground transition-colors"
-              >
-                <Share2 size={18} />
-                Share
-              </button>
-            </div>
-          </div>
+        <div className="space-y-4">
+          <h1 className="text-title-1">{project.title}</h1>
+          <p className="text-body opacity-60">{project.description}</p>
         </div>
-      </motion.div>
+      </div>
+
+      {/* Right Column - Scrollable */}
+      <div className="mt-8 lg:mt-0 space-y-8">
+        {project.content.map((section, index) => (
+          <div key={index} className="space-y-4">
+            {section.title && (
+              <h2 className="text-title-3">{section.title}</h2>
+            )}
+            {section.content}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

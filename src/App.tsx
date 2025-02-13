@@ -261,11 +261,15 @@ function App() {
   return (
     <Router>
       <div className="min-h-screen bg-background dark:bg-black text-foreground">
-        <main className="min-h-screen">
+        <main className="min-h-screen max-w-[1440px] mx-auto">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
-            <Route path="/projects/:slug" element={<ProjectDetail />} />
+            <Route path="/projects/:slug" element={
+              <div className="p-5 md:p-8 lg:p-12">
+                <ProjectDetail />
+              </div>
+            } />
           </Routes>
         </main>
       </div>
