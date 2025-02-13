@@ -241,7 +241,7 @@ export default function ProjectDetail() {
                 className="inline-flex items-center gap-2 px-6 py-3 border border-border hover:bg-border/10 rounded-lg text-callout text-foreground transition-colors"
               >
                 <Share2 size={18} />
-                Share Project
+                Share
               </button>
             </div>
           </div>

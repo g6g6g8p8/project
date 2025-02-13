@@ -230,7 +230,7 @@ function FeaturedProjects() {
 
 function Home() {
   return (
-    <div className="p-8">
+    <div className="px-6 py-8 md:p-8">
       <div className="lg:hidden flex items-center justify-between mb-8">
         <Link to="/" className="text-title-2">
           Giulio Pinotti
