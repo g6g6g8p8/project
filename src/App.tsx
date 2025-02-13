@@ -16,118 +16,6 @@ import ProjectCard from './components/ProjectCard';
 import { getImageColor } from './lib/utils';
 import { useAbout } from './hooks/useAbout';
 
-function DesktopSidebar() {
-  const { projects } = useProjects();
-  
-  const categories = projects?.reduce((acc, project) => {
-    const tag = project.tags[0] || 'Other';
-    if (!acc[tag]) {
-      acc[tag] = [];
-    }
-    acc[tag].push(project);
-    return acc;
-  }, {} as Record<string, typeof projects>);
-
-  return (
-    <aside className="hidden lg:block fixed top-0 left-0 h-screen w-68 bg-background border-r border-border p-6 overflow-y-auto z-50">
-      <Link to="/" className="text-[22px] leading-[27px] md:text-[27px] md:leading-[32px] font-semibold tracking-[-.021em] block mb-8">
-        Giulio Pinotti
-      </Link>
-      
-      <nav className="flex flex-col h-[calc(100vh-8rem)]">
-        <div className="flex-1 space-y-8">
-          {categories && Object.entries(categories).map(([category, items]) => (
-            <div key={category}>
-              <h2 className="text-subheadline font-medium opacity-60 mb-2">
-                {category} ({items.length})
-              </h2>
-              <ul className="space-y-2">
-                {items.map((project) => (
-                  <li key={project.id}>
-                    <NavLink
-                      to={`/projects/${project.slug}`}
-                      className={({ isActive }) =>
-                        cn(
-                          "block text-callout hover:opacity-80 transition-opacity",
-                          isActive ? "opacity-100" : "opacity-60"
-                        )
-                      }
-                    >
-                      {project.title}
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        <div className="space-y-8">
-          <div className="space-y-2">
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                cn(
-                  "block text-callout hover:opacity-80 transition-opacity",
-                  isActive ? "opacity-100" : "opacity-60"
-                )
-              }
-            >
-              About
-            </NavLink>
-            <NavLink
-              to="/contact"
-              className={({ isActive }) =>
-                cn(
-                  "block text-callout hover:opacity-80 transition-opacity",
-                  isActive ? "opacity-100" : "opacity-60"
-                )
-              }
-            >
-              Contact
-            </NavLink>
-          </div>
-
-          <div className="flex space-x-4">
-            <a
-              href="https://linkedin.com/in/pinotti"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="opacity-60 hover:opacity-100 transition-opacity"
-            >
-              <i className="bi bi-linkedin text-xl"></i>
-            </a>
-            <a
-              href="https://behance.net/giuliopinotti"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="opacity-60 hover:opacity-100 transition-opacity"
-            >
-              <i className="bi bi-behance text-xl"></i>
-            </a>
-            <a
-              href="https://www.youtube.com/@giuliopinotti"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="opacity-60 hover:opacity-100 transition-opacity"
-            >
-              <i className="bi bi-youtube text-xl"></i>
-            </a>
-            <a
-              href="https://soundcloud.com/djpinotti"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-8 h-8 flex items-center justify-center rounded-full bg-border/10 hover:bg-border/20 transition-colors"
-            >
-              <i className="bi bi-headphones opacity-60 text-lg"></i>
-            </a>
-          </div>
-        </div>
-      </nav>
-    </aside>
-  );
-}
-
 function FeaturedProjects() {
   const [searchParams, setSearchParams] = useSearchParams();
   const filters: ProjectFilters = {
@@ -367,51 +255,17 @@ function About() {
   );
 }
 
-function Contact() {
-  return (
-    <div className="p-5 max-w-3xl">
-      <div className="lg:hidden flex items-center justify-between mb-5">
-        <Link to="/" className="text-[22px] leading-[27px] md:text-[27px] md:leading-[32px] font-semibold tracking-[-.021em]">
-          Giulio Pinotti
-        </Link>
-        <Link 
-          to="/about"
-          className="w-10 h-10 flex items-center justify-center rounded-full bg-border/10 hover:bg-border/20 transition-colors"
-        >
-          <UserCircle size={24} className="opacity-60" />
-        </Link>
-      </div>
-      <h2 className="text-title-1 mb-5">Contact</h2>
-      <div className="prose">
-        <p className="text-body">
-          Get in touch for collaborations, inquiries, or just to say hello.
-        </p>
-        <a
-          href="mailto:giulio@pinotti.work"
-          className="inline-block mt-4 text-body hover:opacity-80 transition-opacity"
-        >
-          giulio@pinotti.work
-        </a>
-      </div>
-    </div>
-  );
-}
-
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-background dark:bg-black text-foreground">
-        <DesktopSidebar />
-        <div className="lg:pl-68">
-          <main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/projects/:slug" element={<ProjectDetail />} />
-            </Routes>
-          </main>
-        </div>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/projects/:slug" element={<ProjectDetail />} />
+          </Routes>
+        </main>
       </div>
     </Router>
   );
