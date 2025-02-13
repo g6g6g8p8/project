@@ -126,6 +126,7 @@ function FeaturedProjects() {
     client: searchParams.get('client') || undefined,
     year: searchParams.get('year') || undefined,
     tag: searchParams.get('tag') || undefined,
+    role: searchParams.get('role') || undefined,
   };
 
   const { projects, loading } = useProjects(filters);
@@ -152,13 +153,13 @@ function FeaturedProjects() {
   const hasFilters = Object.values(filters).some(Boolean);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {hasFilters && (
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <FilterIcon size={20} className="opacity-60" />
             <span className="text-subheadline opacity-60">
-              Filtering by: {filters.client || filters.year || filters.tag}
+              Filtering by: {filters.client || filters.year || filters.tag || filters.role}
             </span>
           </div>
           <button
@@ -224,6 +225,23 @@ function FeaturedProjects() {
           ))
         )}
       </div>
+
+      <div className="mt-8 max-w-3xl">
+        <h2 className="text-title-1 mb-8">About</h2>
+        <div className="prose">
+          <p className="text-body">
+            Creative Director, Art & Design with 15+ years in advertising, blending strategy,
+            design, and storytelling to inspire and engage.
+          </p>
+          <Link
+            to="/about"
+            className="inline-flex items-center gap-2 mt-6 px-6 py-3 text-foreground border border-border rounded-lg text-callout hover:bg-border/10 transition-colors"
+          >
+            Read More
+            <ArrowRight size={18} />
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
@@ -254,22 +272,6 @@ function Home() {
         </Link>
       </div>
       <FeaturedProjects />
-      <div className="mt-5 max-w-3xl">
-        <h2 className="text-title-1 mb-8">About</h2>
-        <div className="prose">
-          <p className="text-body">
-            Creative Director, Art & Design with 15+ years in advertising, blending strategy,
-            design, and storytelling to inspire and engage.
-          </p>
-          <Link
-            to="/about"
-            className="inline-flex items-center gap-2 mt-6 px-6 py-3 text-foreground border border-border rounded-lg text-callout hover:bg-border/10 transition-colors"
-          >
-            Read More
-            <ArrowRight size={18} />
-          </Link>
-        </div>
-      </div>
     </div>
   );
 }

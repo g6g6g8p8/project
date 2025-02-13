@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import type { Project } from '../types/database';
 
-export interface ProjectFilters {
+export type ProjectFilters = {
   client?: string;
   year?: string;
   tag?: string;
-}
+  role?: string;
+};
 
 export function useProjects(filters?: ProjectFilters) {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -29,6 +30,9 @@ export function useProjects(filters?: ProjectFilters) {
         if (filters?.tag) {
           query = query.contains('tags', [filters.tag]);
         }
+        if (filters?.role) {
+          query = query.eq('role', filters.role);
+        }
 
         const { data, error } = await query;
 
@@ -42,7 +46,7 @@ export function useProjects(filters?: ProjectFilters) {
     }
 
     fetchProjects();
-  }, [filters?.client, filters?.year, filters?.tag]);
+  }, [filters?.client, filters?.year, filters?.tag, filters?.role]);
 
   return { projects, loading };
 }
