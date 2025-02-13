@@ -89,8 +89,8 @@ function Home() {
   const { projects } = useProjects();
 
   return (
-    <div className="p-5">
-      <div className="lg:hidden flex items-center justify-between mb-5">
+    <div className="p-5 md:p-8 lg:p-12">
+      <div className="flex items-center justify-between mb-5">
         <Link to="/" className="text-[22px] leading-[27px] md:text-[27px] md:leading-[32px] font-semibold tracking-[-.021em]">
           Giulio Pinotti
         </Link>
