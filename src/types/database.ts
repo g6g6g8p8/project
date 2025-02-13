@@ -5,6 +5,9 @@ export interface Project {
   image_url: string;
   tags: string[];
   link: string;
+  client: string;
+  role: string;
+  category: string;
   created_at: string;
   slug: string;
 }

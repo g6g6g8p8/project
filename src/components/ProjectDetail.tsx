@@ -221,9 +221,9 @@ export default function ProjectDetail() {
           </div>
         </div>
 
-        <div className="p-8">
+        <div className="p-5 md:p-8">
           <div className="max-w-6xl mx-auto">
-            <div className="space-y-16">
+            <div className="space-y-8 md:space-y-16">
               {content?.map((item) => (
                 <div key={item.id} className="max-w-4xl">
                   {renderContent(item)}
@@ -231,8 +231,36 @@ export default function ProjectDetail() {
               ))}
             </div>
 
-            <div className="mt-24">
-              {renderTags()}
+            <div className="mt-16 space-y-5">
+              <h3 className="text-subheadline font-medium opacity-60">EXPLORE</h3>
+              <div className="space-y-4">
+                <div>
+                  <span className="text-footnote opacity-60 block mb-2">Category</span>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-4 py-2 bg-foreground/5 dark:bg-foreground/10 rounded-full text-footnote">
+                      {project.category}
+                    </span>
+                  </div>
+                </div>
+
+                <div>
+                  <span className="text-footnote opacity-60 block mb-2">Client</span>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-4 py-2 bg-foreground/5 dark:bg-foreground/10 rounded-full text-footnote">
+                      {project.client}
+                    </span>
+                  </div>
+                </div>
+
+                <div>
+                  <span className="text-footnote opacity-60 block mb-2">Role</span>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-4 py-2 bg-foreground/5 dark:bg-foreground/10 rounded-full text-footnote">
+                      {project.role}
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="mt-16 flex items-center justify-center">
