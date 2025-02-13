@@ -29,7 +29,7 @@ function DesktopSidebar() {
   }, {} as Record<string, typeof projects>);
 
   return (
-    <aside className="hidden lg:block fixed h-screen w-68 bg-background border-r border-border p-6 overflow-y-auto z-50">
+    <aside className="hidden lg:block fixed h-screen w-68 bg-background border-r border-border p-6 overflow-y-auto">
       <Link to="/" className="text-[22px] leading-[27px] md:text-[27px] md:leading-[32px] font-semibold tracking-[-.021em] block mb-8">
         Giulio Pinotti
       </Link>
@@ -402,7 +402,7 @@ function App() {
     <Router>
       <div className="flex min-h-screen bg-background dark:bg-black text-foreground">
         <DesktopSidebar />
-        <main className="flex-1 ml-0 lg:ml-68 min-h-screen">
+        <main className="flex-1 w-full lg:pl-68 min-h-screen">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
