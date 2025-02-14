@@ -10,6 +10,7 @@ export interface Project {
   category: string;
   created_at: string;
   slug: string;
+  aspect_ratio?: '4:3' | '3:4' | '9:2';  // default will be '4:3'
 }
 
 export interface ProjectContent {

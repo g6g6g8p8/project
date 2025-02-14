@@ -220,15 +220,24 @@ export default function ProjectDetail() {
         <div className="lg:sticky lg:top-0 lg:h-screen">
           <button
             onClick={() => navigate(-1)}
-            className="fixed lg:absolute top-8 right-8 z-[100] w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
-            aria-label="Close project"
+            className="fixed lg:absolute top-8 right-8 z-50 w-9 h-9 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
           >
-            <CloseIcon size={20} />
+            <CloseIcon size={17} />
           </button>
 
-          {/* Project Card Style - Full width on mobile and shorter screens */}
-          <div className="relative -mt-5 lg:mt-0 lg:h-full">
-            <div className="aspect-[3/4] lg:aspect-auto lg:h-full w-full overflow-hidden lg:rounded-2xl">
+          {/* Project Card Style - Responsive to viewport height */}
+          <div className="relative -mt-5 lg:mt-0">
+            <div 
+              className="
+                aspect-[3/4] w-full 
+                lg:aspect-auto 
+                overflow-hidden 
+                lg:rounded-2xl
+                [@media(min-height:1080px)]:lg:aspect-[3/4]
+                [@media(min-height:1080px)]:lg:my-10
+                [@media(max-height:1080px)]:lg:h-screen
+              "
+            >
               <img 
                 src={project.image_url} 
                 alt={project.title}
@@ -245,8 +254,8 @@ export default function ProjectDetail() {
             </div>
             
             <div className="absolute inset-x-0 bottom-0 p-6">
-              <h1 className="text-[26px] leading-[31px] text-white mb-2">{project.title}</h1>
-              <p className="text-body text-white/90">{project.description}</p>
+              <h1 className="text-[26px] leading-[31px] font-semibold text-white mb-2">{project.title}</h1>
+              <p className="text-[14px] leading-[20px] text-white/90">{project.description}</p>
             </div>
           </div>
         </div>

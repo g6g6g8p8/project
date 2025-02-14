@@ -82,6 +82,11 @@ function Home() {
     <div className="p-5 md:p-8 lg:p-10">
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-1.5">
+          <img 
+            src={about?.avatar_url} 
+            alt=""
+            className="w-9 h-9 rounded-full object-cover"
+          />
           <Link to="/" className="text-[25px] leading-[30px] md:text-[27px] md:leading-[32px] font-semibold tracking-[-.021em]">
             Giulio Pinotti,
           </Link>
@@ -93,15 +98,7 @@ function Home() {
           to="/about"
           className="w-9 h-9 flex items-center justify-center rounded-full bg-border/10 hover:bg-border/20 transition-colors overflow-hidden"
         >
-          {about?.avatar_url ? (
-            <img 
-              src={about.avatar_url} 
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <UserCircle size={22} className="opacity-60" />
-          )}
+          <UserCircle size={22} className="opacity-60" />
         </Link>
       </div>
       <FeaturedProjects />
@@ -112,6 +109,10 @@ function Home() {
 function About() {
   const { about, loading } = useAbout();
   const navigate = useNavigate();
+
+  const handleFilter = (type: 'client' | 'tag', value: string) => {
+    navigate(`/?${new URLSearchParams({ [type]: value }).toString()}`);
+  };
 
   const handleShare = async () => {
     const shareData = {
@@ -141,6 +142,53 @@ function About() {
   }
 
   if (!about) return null;
+
+  const CareerHighlights = () => (
+    <div className="space-y-5">
+      <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">CAREER HIGHLIGHTS</h3>
+      <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
+        {about.career_highlights.map((highlight, index) => (
+          <React.Fragment key={highlight.id}>
+            <div className="flex items-start gap-4">
+              <img src={highlight.logo_url} alt={highlight.company} className="w-16 h-16 rounded-2xl bg-border/10 flex-shrink-0" />
+              <div>
+                <button
+                  onClick={() => handleFilter('client', highlight.company)}
+                  className="text-[16px] leading-[20px] dark:text-white/90 hover:opacity-80 transition-opacity text-left"
+                >
+                  {highlight.company}
+                </button>
+                <h4 className="text-[18px] leading-[22px] dark:text-white">{highlight.role}</h4>
+                <p className="text-body opacity-60 dark:text-white/60">{highlight.period}</p>
+              </div>
+            </div>
+            {index < about.career_highlights.length - 1 && (
+              <div className="h-px bg-gray-200 dark:bg-white/10 my-6" />
+            )}
+          </React.Fragment>
+        ))}
+      </div>
+    </div>
+  );
+
+  const Brands = () => (
+    <div className="space-y-5">
+      <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">BRANDS I'VE WORKED WITH</h3>
+      <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
+        <div className="flex flex-wrap gap-2">
+          {about.brands.map((brand, index) => (
+            <button
+              key={index}
+              onClick={() => handleFilter('client', brand)}
+              className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
+            >
+              {brand}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-[#F7F7F7] dark:bg-black">
@@ -275,55 +323,14 @@ function About() {
               </div>
             </div>
 
-            {/* Column 2: Career Highlights + Brands */}
+            {/* Column 2: Career Highlights */}
             <div className="space-y-8">
-              {/* Career Highlights */}
-              <div className="space-y-5">
-                <h3 className="text-[14px] leading-[17px] font-medium opacity-60 dark:text-white/60">CAREER HIGHLIGHTS</h3>
-                <div className="bg-white dark:bg-[#282828] rounded-2xl p-6 space-y-6">
-                  {about.career_highlights.map((highlight, index) => (
-                    <React.Fragment key={highlight.id}>
-                      <div className="flex items-start gap-4">
-                        <img 
-                          src={highlight.logo_url} 
-                          alt={highlight.company}
-                          className="w-16 h-16 rounded-2xl bg-border/10 flex-shrink-0"
-                        />
-                        <div>
-                          <p className="text-[16px] leading-[20px] dark:text-white/90">{highlight.company}</p>
-                          <h4 className="text-[18px] leading-[22px] dark:text-white">{highlight.role}</h4>
-                          <p className="text-body opacity-60 dark:text-white/60">{highlight.period}</p>
-                        </div>
-                      </div>
-                      {index < about.career_highlights.length - 1 && (
-                        <div className="h-px bg-border/10 dark:bg-white/10" />
-                      )}
-                    </React.Fragment>
-                  ))}
-                </div>
-              </div>
-
-              {/* Brands */}
-              <div className="space-y-5">
-                <h3 className="text-[14px] leading-[17px] font-medium opacity-60 dark:text-white/60">BRANDS I'VE WORKED WITH</h3>
-                <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
-                  <div className="flex flex-wrap gap-2">
-                    {about.brands.map((brand, index) => (
-                      <span 
-                        key={index}
-                        className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90"
-                      >
-                        {brand}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              <CareerHighlights />
             </div>
 
-            {/* Column 3: Awards */}
+            {/* Column 3: Brands + Awards */}
             <div className="space-y-8">
-              {/* Awards */}
+              <Brands />
               <div className="space-y-5">
                 <h3 className="text-[14px] leading-[17px] font-medium opacity-60 dark:text-white/60">AWARDS</h3>
                 <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
