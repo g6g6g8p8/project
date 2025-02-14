@@ -9,41 +9,12 @@ import {
   Share2 
 } from 'lucide-react';
 import { LinkedInIcon, BehanceIcon, SoundCloudIcon } from './components/icons/SocialIcons';
-import { useProjects, ProjectFilters } from './hooks/useProjects';
+import { useProjects } from './hooks/useProjects';
 import { cn } from './lib/utils';
 import ProjectDetail from './components/ProjectDetail';
 import ProjectCard from './components/ProjectCard';
 import { getImageColor } from './lib/utils';
 import { useAbout } from './hooks/useAbout';
-import ProjectFilters from './components/ProjectFilters';
-
-function FeaturedProjects() {
-  const { projects, loading } = useProjects();
-  const [imageColors, setImageColors] = useState<Record<number, string>>({});
-
-  useEffect(() => {
-    async function loadImageColors() {
-      const colors: Record<number, string> = {};
-      for (const project of projects) {
-        colors[project.id] = await getImageColor(project.image_url);
-      }
-      setImageColors(colors);
-    }
-    if (projects.length > 0) {
-      loadImageColors();
-    }
-  }, [projects]);
-
-  return (
-    <div className="space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} imageColor={imageColors[project.id]} />
-        ))}
-      </div>
-    </div>
-  );
-}
 
 function Home() {
   const { projects, loading } = useProjects();
@@ -107,7 +78,6 @@ function Home() {
   );
 }
 
-function Home() {
   const { projects, loading } = useProjects();
   const { about } = useAbout();
 
@@ -117,11 +87,6 @@ function Home() {
 
   const otherProjects = projects.filter(p => !p.featured);
 
-  // Extract unique filter options
-  const getFilterOptions = (key: keyof Project) => 
-    Array.from(new Set(projects.map(p => p[key])))
-      .filter(Boolean)
-      .map(value => ({ label: value, value }));
 
   return (
     <div className="p-5 md:p-8 lg:p-10">
@@ -165,19 +130,6 @@ function Home() {
         </div>
       </div>
 
-      {/* Filters */}
-      <ProjectFilters
-        roles={getFilterOptions('role')}
-        agencies={getFilterOptions('agency')}
-        clients={getFilterOptions('client')}
-        categories={getFilterOptions('category')}
-      />
-
-      {/* Other Projects */}
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
-        {otherProjects.map(project => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
       </div>
     </div>
   );
