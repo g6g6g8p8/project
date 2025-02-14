@@ -158,7 +158,7 @@ function About() {
                 <img 
                   src={highlight.logo_url} 
                   alt={highlight.company} 
-                  className="w-16 h-16 rounded-2xl bg-border/10 flex-shrink-0"
+                  className="w-[54px] h-[54px] rounded-2xl bg-border/10 flex-shrink-0"
                 />
                 <div className="flex-1 min-w-0">
                   <button
@@ -172,12 +172,12 @@ function About() {
               </div>
               
               {/* Second Row: Period */}
-              <p className="text-[14px] leading-[17px] opacity-60 dark:text-white/60 pl-20">
+              <p className="text-[14px] leading-[17px] opacity-60 dark:text-white/60 pl-[70px]">
                 {highlight.period}
               </p>
             </div>
             {index < about.career_highlights.length - 1 && (
-              <div className="h-px bg-gray-200 dark:bg-white/10 my-6" />
+              <div className="h-px bg-[#E5E5E5] dark:bg-white/10 my-6" />
             )}
           </React.Fragment>
         ))}
@@ -305,7 +305,7 @@ function About() {
                   <img 
                     src={about.avatar_url} 
                     alt=""
-                    className="w-16 h-16 rounded-full"
+                    className="w-[54px] h-[54px] rounded-full"
                   />
                   <div>
                     <h1 className="text-[22px] leading-[27px] dark:text-white">{about.name}</h1>
@@ -314,7 +314,7 @@ function About() {
                     </a>
                   </div>
                 </div>
-                <div className="h-px bg-border/10 dark:bg-white/10 my-4" />
+                <div className="h-px bg-[#E5E5E5] dark:bg-white/10 my-4" />
                 <h2 className="text-[18px] leading-[22px] dark:text-white">{about.title}</h2>
               </div>
               
