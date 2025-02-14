@@ -249,27 +249,37 @@ export default function ProjectDetail() {
             <CloseIcon size={17} />
           </button>
 
-          {/* Project Card Style - Responsive to viewport height */}
           <div className="relative -mt-5 lg:mt-0">
             <div 
-              className="
+              className={`
                 aspect-[3/4] w-full 
                 lg:aspect-auto 
                 overflow-hidden 
-                lg:rounded-2xl
+                ${window.innerHeight >= 1080 
+                  ? 'lg:rounded-2xl lg:my-10' 
+                  : 'lg:-mx-10 lg:-mt-10'
+                }
                 shadow-[0_2px_8px_rgba(0,0,0,0.05)]
                 dark:shadow-none
-                [@media(min-height:1080px)]:lg:aspect-[3/4]
-                [@media(min-height:1080px)]:lg:my-10
-                [@media(max-height:1080px)]:lg:h-screen
-              "
+                ${window.innerHeight >= 1080 
+                  ? 'lg:aspect-[3/4]' 
+                  : 'lg:h-screen'
+                }
+              `}
             >
               <img 
                 src={project.image_url} 
                 alt={project.title}
                 className="w-full h-full object-cover"
               />
-              
+              <div 
+                className="absolute inset-0"
+                style={{
+                  background: imageColor 
+                    ? `linear-gradient(to top, ${imageColor}99 0%, ${imageColor}00 100%)`
+                    : 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)'
+                }}
+              />
               <div className="absolute inset-x-0 bottom-0 p-6">
                 <h1 className="text-[26px] leading-[31px] font-semibold text-white mb-2">{project.title}</h1>
                 <p className="text-[14px] leading-[20px] text-white/90 mb-4">{project.description}</p>
