@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import type { Project } from '../types/database';
 
-export type ProjectFilters = {
+export interface ProjectFilters {
   client?: string;
   year?: string;
   tag?: string;
   role?: string;
-};
+}
 
 export function useProjects(filters?: ProjectFilters) {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -15,11 +15,12 @@ export function useProjects(filters?: ProjectFilters) {
 
   useEffect(() => {
     async function fetchProjects() {
+      setLoading(true);
       try {
         let query = supabase
           .from('projects')
-          .select('*')
-          .order('created_at', { ascending: false });
+          .select()
+          .order('order', { ascending: true });
 
         if (filters?.client) {
           query = query.eq('client', filters.client);
@@ -36,10 +37,12 @@ export function useProjects(filters?: ProjectFilters) {
 
         const { data, error } = await query;
 
-        if (error) throw error;
+        if (error) {
+          console.error('Error fetching projects:', error);
+          return;
+        }
+
         setProjects(data || []);
-      } catch (error) {
-        console.error('Error fetching projects:', error);
       } finally {
         setLoading(false);
       }
