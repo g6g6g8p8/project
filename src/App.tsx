@@ -148,7 +148,8 @@ function About() {
             <CloseIcon size={17} />
           </button>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Column 1 */}
             <div className="space-y-8">
               {/* Profile Section */}
               <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
@@ -165,15 +166,8 @@ function About() {
                     </a>
                   </div>
                 </div>
+                <div className="h-px bg-border/10 dark:bg-white/10 my-4" />
                 <h2 className="text-title-3 dark:text-white">{about.title}</h2>
-              </div>
-
-              {/* Short Bio Section */}
-              <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
-                <h3 className="text-title-3 mb-4 dark:text-white">Short bio</h3>
-                <div className="prose dark:prose-invert">
-                  <p className="text-body dark:text-white/90">{about.short_bio}</p>
-                </div>
               </div>
 
               {/* What I Do Section */}
@@ -187,28 +181,13 @@ function About() {
               </div>
             </div>
 
+            {/* Column 2 */}
             <div className="space-y-8">
-              {/* Career Highlights Section */}
-              <div className="space-y-5">
-                <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">CAREER HIGHLIGHTS</h3>
-                <div className="space-y-5">
-                  {about.career_highlights.map((highlight) => (
-                    <div 
-                      key={highlight.id}
-                      className="bg-white dark:bg-[#282828] rounded-2xl p-6 flex items-center gap-4"
-                    >
-                      <img 
-                        src={highlight.logo_url} 
-                        alt={highlight.company}
-                        className="w-16 h-16 rounded-2xl bg-border/10"
-                      />
-                      <div>
-                        <h4 className="text-title-3 dark:text-white">{highlight.role}</h4>
-                        <p className="text-headline dark:text-white/90">{highlight.company}</p>
-                        <p className="text-body opacity-60 dark:text-white/60">{highlight.period}</p>
-                      </div>
-                    </div>
-                  ))}
+              {/* About Me Section (formerly Short Bio) */}
+              <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
+                <h3 className="text-title-3 mb-4 dark:text-white">About me</h3>
+                <div className="prose dark:prose-invert">
+                  <p className="text-body dark:text-white/90">{about.short_bio}</p>
                 </div>
               </div>
 
@@ -226,6 +205,35 @@ function About() {
                       </span>
                     ))}
                   </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Column 3 */}
+            <div className="space-y-8">
+              {/* Career Highlights Section */}
+              <div className="space-y-5">
+                <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">CAREER HIGHLIGHTS</h3>
+                <div className="bg-white dark:bg-[#282828] rounded-2xl p-6 space-y-6">
+                  {about.career_highlights.map((highlight, index) => (
+                    <React.Fragment key={highlight.id}>
+                      <div className="flex items-start gap-4">
+                        <img 
+                          src={highlight.logo_url} 
+                          alt={highlight.company}
+                          className="w-16 h-16 rounded-2xl bg-border/10 flex-shrink-0"
+                        />
+                        <div>
+                          <p className="text-headline dark:text-white/90">{highlight.company}</p>
+                          <h4 className="text-title-3 dark:text-white">{highlight.role}</h4>
+                          <p className="text-body opacity-60 dark:text-white/60">{highlight.period}</p>
+                        </div>
+                      </div>
+                      {index < about.career_highlights.length - 1 && (
+                        <div className="h-px bg-border/10 dark:bg-white/10" />
+                      )}
+                    </React.Fragment>
+                  ))}
                 </div>
               </div>
 

@@ -214,21 +214,21 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div className="p-5 md:p-8 lg:p-10">
+    <div className="lg:p-10">
       <div className="lg:grid lg:grid-cols-[40%_60%] lg:gap-12">
         {/* Left Column - Fixed */}
-        <div className="lg:sticky lg:top-10 lg:h-[calc(100vh-80px)] space-y-8">
+        <div className="lg:sticky lg:top-0 lg:h-screen">
           <button
             onClick={() => navigate(-1)}
-            className="fixed top-8 right-8 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
+            className="fixed lg:absolute top-8 right-8 z-[100] w-10 h-10 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
             aria-label="Close project"
           >
             <CloseIcon size={20} />
           </button>
 
-          {/* Project Card Style */}
-          <div className="relative">
-            <div className="aspect-[3/4] w-full overflow-hidden rounded-2xl">
+          {/* Project Card Style - Full width on mobile and shorter screens */}
+          <div className="relative -mt-5 lg:mt-0 lg:h-full">
+            <div className="aspect-[3/4] lg:aspect-auto lg:h-full w-full overflow-hidden lg:rounded-2xl">
               <img 
                 src={project.image_url} 
                 alt={project.title}
@@ -252,53 +252,55 @@ export default function ProjectDetail() {
         </div>
 
         {/* Right Column - Scrollable */}
-        <div className="mt-8 lg:mt-0 space-y-8">
-          {content.map((section, index) => (
-            <div key={index} className="space-y-4">
-              {section.title && (
-                <h2 className="text-title-3">{section.title}</h2>
-              )}
-              {renderContent(section)}
-            </div>
-          ))}
+        <div className="px-5 lg:px-0 mt-8 lg:mt-0">
+          <div className="space-y-8">
+            {content.map((section, index) => (
+              <div key={index} className="space-y-4">
+                {section.title && (
+                  <h2 className="text-title-3">{section.title}</h2>
+                )}
+                {renderContent(section)}
+              </div>
+            ))}
 
-          {/* Explore Section */}
-          <div className="mt-16 space-y-5">
-            <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">EXPLORE</h3>
-            <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag, index) => (
+            {/* Explore Section */}
+            <div className="mt-16 space-y-5">
+              <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">EXPLORE</h3>
+              <div className="flex flex-wrap gap-2">
+                {project.tags.map((tag, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleFilter('tag', tag)}
+                    className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
+                  >
+                    {tag}
+                  </button>
+                ))}
                 <button
-                  key={index}
-                  onClick={() => handleFilter('tag', tag)}
+                  onClick={() => handleFilter('client', project.client)}
                   className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
                 >
-                  {tag}
+                  {project.client}
                 </button>
-              ))}
+                <button
+                  onClick={() => handleFilter('role', project.role)}
+                  className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
+                >
+                  {project.role}
+                </button>
+              </div>
+            </div>
+
+            {/* Share Button - Mobile Only */}
+            <div className="mt-16 flex items-center justify-center lg:hidden">
               <button
-                onClick={() => handleFilter('client', project.client)}
-                className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
+                onClick={handleShare}
+                className="inline-flex items-center gap-2 px-6 py-3 border border-border hover:bg-border/10 rounded-lg text-callout text-foreground transition-colors"
               >
-                {project.client}
-              </button>
-              <button
-                onClick={() => handleFilter('role', project.role)}
-                className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
-              >
-                {project.role}
+                <Share2 size={18} />
+                Share
               </button>
             </div>
-          </div>
-
-          {/* Share Button - Mobile Only */}
-          <div className="mt-16 flex items-center justify-center lg:hidden">
-            <button
-              onClick={handleShare}
-              className="inline-flex items-center gap-2 px-6 py-3 border border-border hover:bg-border/10 rounded-lg text-callout text-foreground transition-colors"
-            >
-              <Share2 size={18} />
-              Share
-            </button>
           </div>
         </div>
       </div>
