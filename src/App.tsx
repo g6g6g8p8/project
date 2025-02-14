@@ -81,12 +81,17 @@ function Home() {
   return (
     <div className="p-5 md:p-8 lg:p-10">
       <div className="flex items-center justify-between mb-5">
-        <Link to="/" className="text-[22px] leading-[27px] md:text-[27px] md:leading-[32px] font-semibold tracking-[-.021em]">
-          Giulio Pinotti
-        </Link>
+        <div className="flex items-center gap-1.5">
+          <Link to="/" className="text-[25px] leading-[30px] md:text-[27px] md:leading-[32px] font-semibold tracking-[-.021em]">
+            Giulio Pinotti,
+          </Link>
+          <span className="text-[20px] leading-[25px] md:text-[22px] md:leading-[27px] tracking-[-.021em] text-foreground/60">
+            Creative Director
+          </span>
+        </div>
         <Link 
           to="/about"
-          className="w-10 h-10 flex items-center justify-center rounded-full bg-border/10 hover:bg-border/20 transition-colors overflow-hidden"
+          className="w-9 h-9 flex items-center justify-center rounded-full bg-border/10 hover:bg-border/20 transition-colors overflow-hidden"
         >
           {about?.avatar_url ? (
             <img 
@@ -95,7 +100,7 @@ function Home() {
               className="w-full h-full object-cover"
             />
           ) : (
-            <UserCircle size={24} className="opacity-60" />
+            <UserCircle size={22} className="opacity-60" />
           )}
         </Link>
       </div>
@@ -148,8 +153,89 @@ function About() {
             <CloseIcon size={17} />
           </button>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Column 1 */}
+          {/* Mobile Layout */}
+          <div className="lg:hidden space-y-8">
+            {/* Profile Section */}
+            <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
+              <div className="flex items-center gap-4 mb-4">
+                <img src={about.avatar_url} alt="" className="w-16 h-16 rounded-full" />
+                <div>
+                  <h1 className="text-[22px] leading-[27px] dark:text-white">{about.name}</h1>
+                  <a href={`mailto:${about.email}`} className="text-body opacity-60 dark:text-white/60">{about.email}</a>
+                </div>
+              </div>
+              <div className="h-px bg-gray-200 dark:bg-white/10 my-4" />
+              <h2 className="text-[18px] leading-[22px] dark:text-white">{about.title}</h2>
+            </div>
+
+            {/* About Me */}
+            <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
+              <h3 className="text-[18px] leading-[22px] mb-4 dark:text-white">About me</h3>
+              <div className="prose dark:prose-invert">
+                <p className="text-body dark:text-white/90">{about.short_bio}</p>
+              </div>
+            </div>
+
+            {/* Career Highlights */}
+            <div className="space-y-5">
+              <h3 className="text-[14px] leading-[17px] font-medium opacity-60 dark:text-white/60">CAREER HIGHLIGHTS</h3>
+              <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
+                {about.career_highlights.map((highlight, index) => (
+                  <React.Fragment key={highlight.id}>
+                    <div className="flex items-start gap-4">
+                      <img src={highlight.logo_url} alt={highlight.company} className="w-16 h-16 rounded-2xl bg-border/10 flex-shrink-0" />
+                      <div>
+                        <p className="text-[16px] leading-[20px] dark:text-white/90">{highlight.company}</p>
+                        <h4 className="text-[18px] leading-[22px] dark:text-white">{highlight.role}</h4>
+                        <p className="text-body opacity-60 dark:text-white/60">{highlight.period}</p>
+                      </div>
+                    </div>
+                    {index < about.career_highlights.length - 1 && (
+                      <div className="h-px bg-gray-200 dark:bg-white/10 my-6" />
+                    )}
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+
+            {/* What I Do */}
+            <div className="space-y-5">
+              <h3 className="text-[14px] leading-[17px] font-medium opacity-60 dark:text-white/60">WHAT I DO</h3>
+              <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
+                <p className="text-body dark:text-white/90">{about.what_i_do}</p>
+              </div>
+            </div>
+
+            {/* Brands */}
+            <div className="space-y-5">
+              <h3 className="text-[14px] leading-[17px] font-medium opacity-60 dark:text-white/60">BRANDS I'VE WORKED WITH</h3>
+              <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
+                <div className="flex flex-wrap gap-2">
+                  {about.brands.map((brand, index) => (
+                    <span key={index} className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90">
+                      {brand}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Awards */}
+            <div className="space-y-5">
+              <h3 className="text-[14px] leading-[17px] font-medium opacity-60 dark:text-white/60">AWARDS</h3>
+              <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
+                <div className="space-y-2">
+                  {about.awards.map((award, index) => (
+                    <p key={index} className="text-body dark:text-white/90">{award}</p>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Layout */}
+          <div className="hidden lg:grid lg:grid-cols-3 gap-8">
+            {/* Column 1: Profile + About me + What I Do */}
             <div className="space-y-8">
               {/* Profile Section */}
               <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
@@ -160,19 +246,27 @@ function About() {
                     className="w-16 h-16 rounded-full"
                   />
                   <div>
-                    <h1 className="text-title-2 dark:text-white">{about.name}</h1>
+                    <h1 className="text-[22px] leading-[27px] dark:text-white">{about.name}</h1>
                     <a href={`mailto:${about.email}`} className="text-body opacity-60 dark:text-white/60">
                       {about.email}
                     </a>
                   </div>
                 </div>
                 <div className="h-px bg-border/10 dark:bg-white/10 my-4" />
-                <h2 className="text-title-3 dark:text-white">{about.title}</h2>
+                <h2 className="text-[18px] leading-[22px] dark:text-white">{about.title}</h2>
+              </div>
+              
+              {/* About Me */}
+              <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
+                <h3 className="text-[18px] leading-[22px] mb-4 dark:text-white">About me</h3>
+                <div className="prose dark:prose-invert">
+                  <p className="text-body dark:text-white/90">{about.short_bio}</p>
+                </div>
               </div>
 
-              {/* What I Do Section */}
+              {/* What I Do */}
               <div className="space-y-5">
-                <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">WHAT I DO</h3>
+                <h3 className="text-[14px] leading-[17px] font-medium opacity-60 dark:text-white/60">WHAT I DO</h3>
                 <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
                   <div className="prose dark:prose-invert">
                     <p className="text-body dark:text-white/90">{about.what_i_do}</p>
@@ -181,19 +275,37 @@ function About() {
               </div>
             </div>
 
-            {/* Column 2 */}
+            {/* Column 2: Career Highlights + Brands */}
             <div className="space-y-8">
-              {/* About Me Section (formerly Short Bio) */}
-              <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
-                <h3 className="text-title-3 mb-4 dark:text-white">About me</h3>
-                <div className="prose dark:prose-invert">
-                  <p className="text-body dark:text-white/90">{about.short_bio}</p>
+              {/* Career Highlights */}
+              <div className="space-y-5">
+                <h3 className="text-[14px] leading-[17px] font-medium opacity-60 dark:text-white/60">CAREER HIGHLIGHTS</h3>
+                <div className="bg-white dark:bg-[#282828] rounded-2xl p-6 space-y-6">
+                  {about.career_highlights.map((highlight, index) => (
+                    <React.Fragment key={highlight.id}>
+                      <div className="flex items-start gap-4">
+                        <img 
+                          src={highlight.logo_url} 
+                          alt={highlight.company}
+                          className="w-16 h-16 rounded-2xl bg-border/10 flex-shrink-0"
+                        />
+                        <div>
+                          <p className="text-[16px] leading-[20px] dark:text-white/90">{highlight.company}</p>
+                          <h4 className="text-[18px] leading-[22px] dark:text-white">{highlight.role}</h4>
+                          <p className="text-body opacity-60 dark:text-white/60">{highlight.period}</p>
+                        </div>
+                      </div>
+                      {index < about.career_highlights.length - 1 && (
+                        <div className="h-px bg-border/10 dark:bg-white/10" />
+                      )}
+                    </React.Fragment>
+                  ))}
                 </div>
               </div>
 
-              {/* Brands Section */}
+              {/* Brands */}
               <div className="space-y-5">
-                <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">BRANDS I'VE WORKED WITH</h3>
+                <h3 className="text-[14px] leading-[17px] font-medium opacity-60 dark:text-white/60">BRANDS I'VE WORKED WITH</h3>
                 <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
                   <div className="flex flex-wrap gap-2">
                     {about.brands.map((brand, index) => (
@@ -209,37 +321,11 @@ function About() {
               </div>
             </div>
 
-            {/* Column 3 */}
+            {/* Column 3: Awards */}
             <div className="space-y-8">
-              {/* Career Highlights Section */}
+              {/* Awards */}
               <div className="space-y-5">
-                <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">CAREER HIGHLIGHTS</h3>
-                <div className="bg-white dark:bg-[#282828] rounded-2xl p-6 space-y-6">
-                  {about.career_highlights.map((highlight, index) => (
-                    <React.Fragment key={highlight.id}>
-                      <div className="flex items-start gap-4">
-                        <img 
-                          src={highlight.logo_url} 
-                          alt={highlight.company}
-                          className="w-16 h-16 rounded-2xl bg-border/10 flex-shrink-0"
-                        />
-                        <div>
-                          <p className="text-headline dark:text-white/90">{highlight.company}</p>
-                          <h4 className="text-title-3 dark:text-white">{highlight.role}</h4>
-                          <p className="text-body opacity-60 dark:text-white/60">{highlight.period}</p>
-                        </div>
-                      </div>
-                      {index < about.career_highlights.length - 1 && (
-                        <div className="h-px bg-border/10 dark:bg-white/10" />
-                      )}
-                    </React.Fragment>
-                  ))}
-                </div>
-              </div>
-
-              {/* Awards Section */}
-              <div className="space-y-5">
-                <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">AWARDS</h3>
+                <h3 className="text-[14px] leading-[17px] font-medium opacity-60 dark:text-white/60">AWARDS</h3>
                 <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
                   <div className="space-y-2">
                     {about.awards.map((award, index) => (

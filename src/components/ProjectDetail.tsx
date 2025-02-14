@@ -245,7 +245,7 @@ export default function ProjectDetail() {
             </div>
             
             <div className="absolute inset-x-0 bottom-0 p-6">
-              <h1 className="text-title-2 text-white mb-2">{project.title}</h1>
+              <h1 className="text-[26px] leading-[31px] text-white mb-2">{project.title}</h1>
               <p className="text-body text-white/90">{project.description}</p>
             </div>
           </div>
