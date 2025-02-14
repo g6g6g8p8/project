@@ -6,10 +6,12 @@ import { useProject } from '../hooks/useProject';
 import { getImageColor } from '../lib/utils';
 import type { ProjectContent } from '../types/database';
 import ProjectCard from './ProjectCard';
+import { useProjects } from '../hooks/useProjects';
 
 export default function ProjectDetail() {
   const { slug } = useParams();
   const { project, content, loading } = useProject(slug);
+  const { projects } = useProjects();
   const navigate = useNavigate();
   const [imageColor, setImageColor] = useState<string>('');
   const [currentSlide, setCurrentSlide] = useState<Record<string, number>>({});
@@ -193,28 +195,30 @@ export default function ProjectDetail() {
   };
 
   const groupProjectsByTag = () => {
-    if (!project) return new Map();
-
-    const allTags = [
-      { type: 'category', value: project.category },
-      { type: 'client', value: project.client }
-    ].filter(tag => Boolean(tag.value));
-
-    const groupedProjects = new Map();
+    if (!project || !projects) return new Map();
     
-    allTags.forEach(tag => {
-      const relatedProjects = projects.filter(p => 
-        tag.type === 'category' ? p.category === tag.value :
-        tag.type === 'client' ? p.client === tag.value :
-        false
-      ).filter(p => p.id !== project.id); // Exclude current project
+    const relatedProjects = projects.filter(p => 
+      p.id !== project.id && // Exclude current project
+      (p.category === project.category || p.client === project.client)
+    );
 
-      if (relatedProjects.length > 0) {
-        groupedProjects.set(tag.value, relatedProjects);
-      }
-    });
+    const groupedByTag = new Map();
+    
+    // Group by category
+    if (project.category) {
+      groupedByTag.set(project.category, 
+        relatedProjects.filter(p => p.category === project.category)
+      );
+    }
+    
+    // Group by client
+    if (project.client) {
+      groupedByTag.set(project.client, 
+        relatedProjects.filter(p => p.client === project.client)
+      );
+    }
 
-    return groupedProjects;
+    return groupedByTag;
   };
 
   if (loading) {
