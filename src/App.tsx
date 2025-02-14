@@ -152,27 +152,36 @@ function About() {
       <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
         {about.career_highlights.map((highlight, index) => (
           <React.Fragment key={highlight.id}>
-            <div className="space-y-3">
-              {/* First Row: Image, Company and Role */}
+            <div className="space-y-6">
+              {/* Header with Logo and Title */}
               <div className="flex items-start gap-4">
-                <img 
-                  src={highlight.logo_url} 
-                  alt={highlight.company} 
-                  className="w-[54px] h-[54px] rounded-2xl bg-border/10 flex-shrink-0"
-                />
+                <button 
+                  onClick={() => handleFilter('client', highlight.company)}
+                  className="flex-shrink-0"
+                >
+                  <img 
+                    src={highlight.logo_url} 
+                    alt={highlight.company} 
+                    className="w-[54px] h-[54px] rounded-[8px] bg-border/10 hover:opacity-80 transition-opacity" 
+                  />
+                </button>
                 <div className="flex-1 min-w-0">
-                  <button
-                    onClick={() => handleFilter('client', highlight.company)}
-                    className="text-[20px] leading-[24px] font-medium dark:text-white/90 hover:opacity-80 transition-opacity text-left"
-                  >
-                    {highlight.company}
-                  </button>
-                  <h4 className="text-[16px] leading-[20px] dark:text-white mt-1">{highlight.role}</h4>
+                  <div className="flex items-baseline gap-2">
+                    <button
+                      onClick={() => handleFilter('client', highlight.company)}
+                      className="text-[22px] leading-[27px] font-semibold dark:text-white/90 hover:opacity-80 transition-opacity text-left"
+                    >
+                      {highlight.company}
+                    </button>
+                    <span className="text-[16px] leading-[19px] text-foreground/60">
+                      at {highlight.role}
+                    </span>
+                  </div>
                 </div>
               </div>
-              
-              {/* Second Row: Period */}
-              <p className="text-[14px] leading-[17px] opacity-60 dark:text-white/60 pl-[70px]">
+
+              {/* Description */}
+              <p className="text-[16px] leading-[24px] text-foreground/80 dark:text-white/80">
                 {highlight.period}
               </p>
             </div>

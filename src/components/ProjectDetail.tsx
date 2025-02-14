@@ -5,6 +5,7 @@ import { X as CloseIcon, Share2, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useProject } from '../hooks/useProject';
 import { getImageColor } from '../lib/utils';
 import type { ProjectContent } from '../types/database';
+import ProjectCard from './ProjectCard';
 
 export default function ProjectDetail() {
   const { slug } = useParams();
@@ -191,6 +192,31 @@ export default function ProjectDetail() {
     );
   };
 
+  const groupProjectsByTag = () => {
+    if (!project) return new Map();
+
+    const allTags = [
+      { type: 'category', value: project.category },
+      { type: 'client', value: project.client }
+    ].filter(tag => Boolean(tag.value));
+
+    const groupedProjects = new Map();
+    
+    allTags.forEach(tag => {
+      const relatedProjects = projects.filter(p => 
+        tag.type === 'category' ? p.category === tag.value :
+        tag.type === 'client' ? p.client === tag.value :
+        false
+      ).filter(p => p.id !== project.id); // Exclude current project
+
+      if (relatedProjects.length > 0) {
+        groupedProjects.set(tag.value, relatedProjects);
+      }
+    });
+
+    return groupedProjects;
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
@@ -275,30 +301,23 @@ export default function ProjectDetail() {
             ))}
 
             {/* Explore Section */}
-            <div className="mt-16 space-y-5">
-              <h3 className="text-subheadline font-medium opacity-60 dark:text-white/60">EXPLORE</h3>
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleFilter('tag', tag)}
-                    className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
-                  >
-                    {tag}
-                  </button>
+            <div className="mt-16 px-5 lg:px-0">
+              <h2 className="text-[22px] leading-[27px] font-semibold mb-8">EXPLORE</h2>
+              <div className="space-y-12">
+                {Array.from(groupProjectsByTag()).map(([tag, projects]) => (
+                  <div key={tag} className="space-y-4">
+                    <h3 className="text-[18px] leading-[22px] font-medium">{tag}</h3>
+                    <div className="relative">
+                      <div className="flex overflow-x-auto pb-4 -mx-5 lg:mx-0 px-5 lg:px-0 gap-5 no-scrollbar">
+                        {projects.map((relatedProject) => (
+                          <div key={relatedProject.id} className="w-[280px] flex-shrink-0">
+                            <ProjectCard project={relatedProject} />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 ))}
-                <button
-                  onClick={() => handleFilter('client', project.client)}
-                  className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
-                >
-                  {project.client}
-                </button>
-                <button
-                  onClick={() => handleFilter('role', project.role)}
-                  className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
-                >
-                  {project.role}
-                </button>
               </div>
             </div>
 
