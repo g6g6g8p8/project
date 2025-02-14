@@ -165,17 +165,15 @@ function About() {
                     className="w-[54px] h-[54px] rounded-[8px] bg-border/10 hover:opacity-80 transition-opacity" 
                   />
                 </button>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-baseline gap-2">
-                    <button
-                      onClick={() => handleFilter('client', highlight.company)}
-                      className="text-[22px] leading-[27px] font-semibold dark:text-white/90 hover:opacity-80 transition-opacity text-left"
-                    >
-                      {highlight.company}
-                    </button>
-                    <span className="text-[16px] leading-[19px] text-foreground/60">
-                      at {highlight.role}
-                    </span>
+                <div className="flex-1 min-w-0 space-y-1">
+                  <button
+                    onClick={() => handleFilter('client', highlight.company)}
+                    className="text-[22px] leading-[27px] font-semibold dark:text-white/90 hover:opacity-80 transition-opacity text-left"
+                  >
+                    {highlight.company}
+                  </button>
+                  <div className="text-[16px] leading-[19px] text-foreground/60">
+                    at {highlight.role}
                   </div>
                 </div>
               </div>
