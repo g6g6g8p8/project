@@ -8,6 +8,34 @@ import type { ProjectContent } from '../types/database';
 import ProjectCard from './ProjectCard';
 import { useProjects } from '../hooks/useProjects';
 
+interface ExploreProjectCardProps {
+  project: Project;
+  imageColor?: string;
+}
+
+const ExploreProjectCard: React.FC<ExploreProjectCardProps> = ({ project, imageColor }) => {
+  return (
+    <Link to={`/projects/${project.slug}`} className="block">
+      <div className="relative">
+        <div className={`
+          w-full overflow-hidden rounded-2xl
+          aspect-[3/4] md:aspect-[4/3]
+        `}>
+          <img 
+            src={project.image_url} 
+            alt={project.title}
+            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+          />
+          <div className="absolute inset-x-0 bottom-0 p-6">
+            <h2 className="text-[26px] leading-[31px] font-semibold text-white mb-2">{project.title}</h2>
+            <p className="text-[14px] leading-[20px] text-white/90">{project.description}</p>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+};
+
 export default function ProjectDetail() {
   const { slug } = useParams();
   const { project, content, loading } = useProject(slug);
@@ -318,20 +346,23 @@ export default function ProjectDetail() {
             <div className="mt-16 px-5 lg:px-0">
               <h2 className="text-[22px] leading-[27px] font-semibold mb-8">EXPLORE</h2>
               <div className="space-y-12">
-                {Array.from(groupProjectsByTag()).map(([tag, projects]) => (
-                  <div key={tag} className="space-y-4">
-                    <h3 className="text-[18px] leading-[22px] font-medium">{tag}</h3>
-                    <div className="relative">
-                      <div className="flex overflow-x-auto pb-4 -mx-5 lg:mx-0 px-5 lg:px-0 gap-5 no-scrollbar">
-                        {projects.map((relatedProject) => (
-                          <div key={relatedProject.id} className="w-[280px] flex-shrink-0">
-                            <ProjectCard project={relatedProject} />
-                          </div>
-                        ))}
+                {Array.from(groupProjectsByTag()).map(([tag, relatedProjects]) => 
+                  // Only show if there's more than one related project
+                  relatedProjects.length > 1 ? (
+                    <div key={tag} className="space-y-4">
+                      <h3 className="text-[18px] leading-[22px] font-medium">{tag}</h3>
+                      <div className="relative">
+                        <div className="flex overflow-x-auto pb-4 -mx-5 lg:mx-0 px-5 lg:px-0 gap-5 no-scrollbar">
+                          {relatedProjects.map((relatedProject) => (
+                            <div key={relatedProject.id} className="w-[280px] flex-shrink-0">
+                              <ExploreProjectCard project={relatedProject} />
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ) : null
+                )}
               </div>
             </div>
 
