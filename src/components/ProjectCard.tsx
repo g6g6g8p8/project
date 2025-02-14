@@ -34,7 +34,9 @@ export default function ProjectCard({ project, imageColor }: ProjectCardProps) {
       <div className={`relative ${is9by4 ? 'md:grid md:grid-cols-[33%_67%]' : ''}`}>
         {/* Content Section - Only for 9:4 on desktop */}
         {is9by4 && (
-          <div className="hidden md:flex relative flex-col justify-between p-8 h-full overflow-hidden rounded-l-2xl">
+          <div className="hidden md:flex relative flex-col justify-between p-8 h-full overflow-hidden rounded-l-2xl 
+            dark:ring-1 dark:ring-white/[0.08]"
+          >
             <div 
               className="absolute inset-0 z-0"
               style={{
@@ -60,7 +62,7 @@ export default function ProjectCard({ project, imageColor }: ProjectCardProps) {
         )}
 
         {/* Shadow wrapper */}
-        <div className="rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.05)] dark:shadow-none">
+        <div className="rounded-2xl dark:ring-1 dark:ring-white/[0.08]">
           {/* Image Section */}
           <div className={`
             w-full overflow-hidden 
@@ -76,30 +78,20 @@ export default function ProjectCard({ project, imageColor }: ProjectCardProps) {
             
             {/* Gradient and Content Overlay - Only show on mobile or non-9:4 */}
             {(!is9by4 || window.innerWidth < 768) && (
-              <>
-                <div 
-                  className="absolute inset-0"
-                  style={{
-                    background: imageColor 
-                      ? `linear-gradient(to top, ${imageColor}99 0%, ${imageColor}00 100%)`
-                      : 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)'
-                  }}
-                />
-                <div className="absolute inset-x-0 bottom-0 p-6">
-                  <h2 className="text-[26px] leading-[31px] font-semibold text-white mb-2">{project.title}</h2>
-                  <p className="text-[14px] leading-[20px] text-white/90 mb-4">{project.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {displayTags.map((tag, index) => (
-                      <span 
-                        key={index} 
-                        className="px-3 py-1 bg-white/10 rounded-full text-[12px] text-white/90"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <h2 className="text-[26px] leading-[31px] font-semibold text-white mb-2">{project.title}</h2>
+                <p className="text-[14px] leading-[20px] text-white/90 mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {displayTags.map((tag, index) => (
+                    <span 
+                      key={index} 
+                      className="px-3 py-1 bg-white/10 rounded-full text-[12px] text-white/90"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
-              </>
+              </div>
             )}
           </div>
         </div>

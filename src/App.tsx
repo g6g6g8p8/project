@@ -239,26 +239,7 @@ function About() {
             </div>
 
             {/* Career Highlights */}
-            <div className="space-y-5">
-              <h3 className="text-[14px] leading-[17px] font-medium opacity-60 dark:text-white/60">CAREER HIGHLIGHTS</h3>
-              <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
-                {about.career_highlights.map((highlight, index) => (
-                  <React.Fragment key={highlight.id}>
-                    <div className="flex items-start gap-4">
-                      <img src={highlight.logo_url} alt={highlight.company} className="w-16 h-16 rounded-2xl bg-border/10 flex-shrink-0" />
-                      <div>
-                        <p className="text-[16px] leading-[20px] dark:text-white/90">{highlight.company}</p>
-                        <h4 className="text-[18px] leading-[22px] dark:text-white">{highlight.role}</h4>
-                        <p className="text-body opacity-60 dark:text-white/60">{highlight.period}</p>
-                      </div>
-                    </div>
-                    {index < about.career_highlights.length - 1 && (
-                      <div className="h-px bg-gray-200 dark:bg-white/10 my-6" />
-                    )}
-                  </React.Fragment>
-                ))}
-              </div>
-            </div>
+            <CareerHighlights />
 
             {/* What I Do */}
             <div className="space-y-5">

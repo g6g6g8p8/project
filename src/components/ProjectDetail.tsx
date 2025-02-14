@@ -76,29 +76,29 @@ export default function ProjectDetail() {
     touchStart.current = null;
   };
 
-  const renderContent = (content: ProjectContent) => {
-    switch (content.type) {
+  const renderContent = (section: ProjectContent) => {
+    switch (section.type) {
       case 'text':
         return (
           <div className="prose max-w-none">
-            {content.content.text?.split('\n').map((paragraph, index) => (
+            {section.content.text?.split('\n').map((paragraph, index) => (
               <p key={index} className="text-body opacity-80">{paragraph}</p>
             ))}
           </div>
         );
 
       case 'gallery':
-        const gallery = content.content.gallery || [];
-        const currentIndex = currentSlide[content.id] || 0;
+        const gallery = section.content.gallery || [];
+        const currentIndex = currentSlide[section.id] || 0;
         
         return (
-          <div className="relative">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
+          <div className="relative -mx-5 lg:mx-0">
+            <div className="relative aspect-[4/5] overflow-hidden">
               <div 
                 className="flex transition-transform duration-300 ease-in-out h-full"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-                onTouchStart={(e) => handleTouchStart(e, content.id)}
-                onTouchMove={(e) => handleTouchMove(e, content.id, gallery.length)}
+                onTouchStart={(e) => handleTouchStart(e, section.id)}
+                onTouchMove={(e) => handleTouchMove(e, section.id, gallery.length)}
                 onTouchEnd={handleTouchEnd}
               >
                 {gallery.map((image, index) => (
@@ -114,15 +114,15 @@ export default function ProjectDetail() {
               {gallery.length > 1 && (
                 <>
                   <button
-                    onClick={() => handleSlideChange(content.id, 'prev', gallery.length)}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+                    onClick={() => handleSlideChange(section.id, 'prev', gallery.length)}
+                    className="absolute left-5 lg:left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
                     aria-label="Previous image"
                   >
                     <ChevronLeft size={20} />
                   </button>
                   <button
-                    onClick={() => handleSlideChange(content.id, 'next', gallery.length)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+                    onClick={() => handleSlideChange(section.id, 'next', gallery.length)}
+                    className="absolute right-5 lg:right-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
                     aria-label="Next image"
                   >
                     <ChevronRight size={20} />
@@ -144,23 +144,21 @@ export default function ProjectDetail() {
         );
 
       case 'video':
-        const video = content.content.video;
-        if (!video?.url) return null;
-        
-        // Add parameters to hide title and byline
-        const videoUrl = new URL(video.url);
-        videoUrl.searchParams.set('title', '0');
-        videoUrl.searchParams.set('byline', '0');
-        videoUrl.searchParams.set('portrait', '0');
-        
         return (
-          <div className="aspect-video rounded-lg overflow-hidden">
-            <iframe
-              src={videoUrl.toString()}
-              className="w-full h-full"
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowFullScreen
-            />
+          <div className="space-y-4">
+            {section.content.video?.title && (
+              <h3 className="text-[18px] leading-[22px] dark:text-white">
+                {section.content.video.title}
+              </h3>
+            )}
+            <div className="aspect-video w-full rounded-2xl overflow-hidden bg-border/10">
+              <iframe
+                src={section.content.video?.url}
+                className="w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
           </div>
         );
 
@@ -220,7 +218,7 @@ export default function ProjectDetail() {
         <div className="lg:sticky lg:top-0 lg:h-screen overflow-hidden">
           <button
             onClick={() => navigate(-1)}
-            className="fixed lg:absolute top-8 right-8 z-50 w-9 h-9 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
+            className="fixed lg:absolute top-[38px] right-[38px] lg:top-8 lg:right-8 z-50 w-9 h-9 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
           >
             <CloseIcon size={17} />
           </button>
@@ -245,28 +243,20 @@ export default function ProjectDetail() {
                 alt={project.title}
                 className="w-full h-full object-cover"
               />
-              <div 
-                className="absolute inset-0"
-                style={{
-                  background: imageColor 
-                    ? `linear-gradient(to top, ${imageColor}99 0%, ${imageColor}00 100%)`
-                    : 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)'
-                }}
-              />
-            </div>
-            
-            <div className="absolute inset-x-0 bottom-0 p-6">
-              <h1 className="text-[26px] leading-[31px] font-semibold text-white mb-2">{project.title}</h1>
-              <p className="text-[14px] leading-[20px] text-white/90 mb-4">{project.description}</p>
-              <div className="flex flex-wrap gap-2">
-                {[project.category, project.client].filter(Boolean).map((tag, index) => (
-                  <span 
-                    key={index} 
-                    className="px-3 py-1 bg-white/10 rounded-full text-[12px] text-white/90"
-                  >
-                    {tag}
-                  </span>
-                ))}
+              
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <h1 className="text-[26px] leading-[31px] font-semibold text-white mb-2">{project.title}</h1>
+                <p className="text-[14px] leading-[20px] text-white/90 mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {[project.category, project.client].filter(Boolean).map((tag, index) => (
+                    <span 
+                      key={index} 
+                      className="px-3 py-1 bg-white/10 rounded-full text-[12px] text-white/90"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

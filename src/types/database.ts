@@ -24,6 +24,7 @@ export interface ProjectContent {
     video?: {
       url: string;
       thumbnail?: string;
+      title?: string;
     };
     image?: {
       url: string;
