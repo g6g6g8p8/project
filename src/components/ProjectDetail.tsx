@@ -217,7 +217,7 @@ export default function ProjectDetail() {
     <div className="lg:p-10">
       <div className="lg:grid lg:grid-cols-[40%_60%] lg:gap-12">
         {/* Left Column - Fixed */}
-        <div className="lg:sticky lg:top-0 lg:h-screen">
+        <div className="lg:sticky lg:top-0 lg:h-screen overflow-hidden">
           <button
             onClick={() => navigate(-1)}
             className="fixed lg:absolute top-8 right-8 z-50 w-9 h-9 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"

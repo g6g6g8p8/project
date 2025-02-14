@@ -152,18 +152,29 @@ function About() {
       <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
         {about.career_highlights.map((highlight, index) => (
           <React.Fragment key={highlight.id}>
-            <div className="flex items-start gap-4">
-              <img src={highlight.logo_url} alt={highlight.company} className="w-16 h-16 rounded-2xl bg-border/10 flex-shrink-0" />
-              <div>
-                <button
-                  onClick={() => handleFilter('client', highlight.company)}
-                  className="text-[16px] leading-[20px] dark:text-white/90 hover:opacity-80 transition-opacity text-left"
-                >
-                  {highlight.company}
-                </button>
-                <h4 className="text-[18px] leading-[22px] dark:text-white">{highlight.role}</h4>
-                <p className="text-body opacity-60 dark:text-white/60">{highlight.period}</p>
+            <div className="space-y-3">
+              {/* First Row: Image, Company and Role */}
+              <div className="flex items-start gap-4">
+                <img 
+                  src={highlight.logo_url} 
+                  alt={highlight.company} 
+                  className="w-16 h-16 rounded-2xl bg-border/10 flex-shrink-0"
+                />
+                <div className="flex-1 min-w-0">
+                  <button
+                    onClick={() => handleFilter('client', highlight.company)}
+                    className="text-[20px] leading-[24px] font-medium dark:text-white/90 hover:opacity-80 transition-opacity text-left"
+                  >
+                    {highlight.company}
+                  </button>
+                  <h4 className="text-[16px] leading-[20px] dark:text-white mt-1">{highlight.role}</h4>
+                </div>
               </div>
+              
+              {/* Second Row: Period */}
+              <p className="text-[14px] leading-[17px] opacity-60 dark:text-white/60 pl-20">
+                {highlight.period}
+              </p>
             </div>
             {index < about.career_highlights.length - 1 && (
               <div className="h-px bg-gray-200 dark:bg-white/10 my-6" />
