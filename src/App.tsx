@@ -15,6 +15,7 @@ import ProjectDetail from './components/ProjectDetail';
 import ProjectCard from './components/ProjectCard';
 import { getImageColor } from './lib/utils';
 import { useAbout } from './hooks/useAbout';
+import ProjectFilters from './components/ProjectFilters';
 
 function FeaturedProjects() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -75,8 +76,20 @@ function FeaturedProjects() {
 }
 
 function Home() {
+  const { projects, loading } = useProjects();
   const { about } = useAbout();
-  const { projects } = useProjects();
+
+  const featuredProjects = projects
+    .filter(p => p.featured)
+    .sort((a, b) => (a.featured_order || 0) - (b.featured_order || 0));
+
+  const otherProjects = projects.filter(p => !p.featured);
+
+  // Extract unique filter options
+  const getFilterOptions = (key: keyof Project) => 
+    Array.from(new Set(projects.map(p => p[key])))
+      .filter(Boolean)
+      .map(value => ({ label: value, value }));
 
   return (
     <div className="p-5 md:p-8 lg:p-10">
@@ -104,7 +117,36 @@ function Home() {
           )}
         </Link>
       </div>
-      <FeaturedProjects />
+
+      {/* Featured Projects */}
+      <div className="space-y-8 mb-16">
+        {/* Main Featured Project (9:4) */}
+        {featuredProjects[0] && (
+          <ProjectCard project={featuredProjects[0]} />
+        )}
+
+        {/* Other Featured Projects (4:3) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8">
+          {featuredProjects.slice(1, 4).map(project => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
+      </div>
+
+      {/* Filters */}
+      <ProjectFilters
+        roles={getFilterOptions('role')}
+        agencies={getFilterOptions('agency')}
+        clients={getFilterOptions('client')}
+        categories={getFilterOptions('category')}
+      />
+
+      {/* Other Projects */}
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
+        {otherProjects.map(project => (
+          <ProjectCard key={project.id} project={project} />
+        ))}
+      </div>
     </div>
   );
 }
