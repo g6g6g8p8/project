@@ -233,6 +233,8 @@ export default function ProjectDetail() {
                 lg:aspect-auto 
                 overflow-hidden 
                 lg:rounded-2xl
+                shadow-[0_2px_8px_rgba(0,0,0,0.05)]
+                dark:shadow-none
                 [@media(min-height:1080px)]:lg:aspect-[3/4]
                 [@media(min-height:1080px)]:lg:my-10
                 [@media(max-height:1080px)]:lg:h-screen
@@ -255,7 +257,17 @@ export default function ProjectDetail() {
             
             <div className="absolute inset-x-0 bottom-0 p-6">
               <h1 className="text-[26px] leading-[31px] font-semibold text-white mb-2">{project.title}</h1>
-              <p className="text-[14px] leading-[20px] text-white/90">{project.description}</p>
+              <p className="text-[14px] leading-[20px] text-white/90 mb-4">{project.description}</p>
+              <div className="flex flex-wrap gap-2">
+                {[project.category, project.client].filter(Boolean).map((tag, index) => (
+                  <span 
+                    key={index} 
+                    className="px-3 py-1 bg-white/10 rounded-full text-[12px] text-white/90"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>

@@ -82,11 +82,6 @@ function Home() {
     <div className="p-5 md:p-8 lg:p-10">
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-1.5">
-          <img 
-            src={about?.avatar_url} 
-            alt=""
-            className="w-9 h-9 rounded-full object-cover"
-          />
           <Link to="/" className="text-[25px] leading-[30px] md:text-[27px] md:leading-[32px] font-semibold tracking-[-.021em]">
             Giulio Pinotti,
           </Link>
@@ -98,7 +93,15 @@ function Home() {
           to="/about"
           className="w-9 h-9 flex items-center justify-center rounded-full bg-border/10 hover:bg-border/20 transition-colors overflow-hidden"
         >
-          <UserCircle size={22} className="opacity-60" />
+          {about?.avatar_url ? (
+            <img 
+              src={about.avatar_url} 
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <UserCircle size={22} className="opacity-60" />
+          )}
         </Link>
       </div>
       <FeaturedProjects />

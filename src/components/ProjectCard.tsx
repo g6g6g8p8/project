@@ -8,55 +8,95 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, imageColor }: ProjectCardProps) {
+  const is9by2 = project.aspect_ratio === '9:2';
+  
   const getAspectRatioClass = () => {
     switch (project.aspect_ratio) {
       case '3:4':
         return 'aspect-[3/4]';
       case '9:2':
-        return 'aspect-[9/2]';
+        return 'aspect-[9/2] md:aspect-auto md:h-[280px]'; // Fixed height on desktop
       default:
-        return 'aspect-[3/4] md:aspect-[4/3]'; // Default: 3:4 on mobile, 4:3 on desktop
+        return 'aspect-[3/4] md:aspect-[4/3]';
     }
   };
 
-  const allTags = [
-    ...project.tags,
-    project.client,
-    project.role
-  ];
+  const displayTags = [
+    project.category,
+    project.client
+  ].filter(Boolean);
 
   return (
     <Link to={`/projects/${project.slug}`} className="block">
-      <div className="relative">
-        <div className={`w-full overflow-hidden rounded-2xl ${getAspectRatioClass()}`}>
+      <div className={`relative ${is9by2 ? 'md:grid md:grid-cols-[45%_55%]' : ''}`}>
+        {/* Content Section - Only for 9:2 on desktop */}
+        {is9by2 && (
+          <div className="hidden md:flex relative flex-col justify-center p-8 h-[280px] overflow-hidden rounded-l-2xl">
+            <div 
+              className="absolute inset-0 z-0"
+              style={{
+                backgroundColor: imageColor || 'rgba(0,0,0,0.8)',
+                backdropFilter: 'blur(20px)',
+              }}
+            />
+            <div className="relative z-10 space-y-4">
+              <h2 className="text-[26px] leading-[31px] font-semibold text-white">{project.title}</h2>
+              <p className="text-[14px] leading-[20px] text-white/90">{project.description}</p>
+              <div className="flex flex-wrap gap-2">
+                {displayTags.map((tag, index) => (
+                  <span 
+                    key={index} 
+                    className="px-3 py-1 bg-white/10 rounded-full text-[12px] text-white/90"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Image Section */}
+        <div className={`
+          w-full overflow-hidden 
+          ${is9by2 ? 'md:rounded-l-none' : ''} 
+          rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.05)] 
+          dark:shadow-none 
+          ${getAspectRatioClass()}
+        `}>
           <img 
             src={project.image_url} 
             alt={project.title}
             className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
           />
-          <div 
-            className="absolute inset-0"
-            style={{
-              background: imageColor 
-                ? `linear-gradient(to top, ${imageColor}99 0%, ${imageColor}00 100%)`
-                : 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)'
-            }}
-          />
-        </div>
-        
-        <div className="absolute inset-x-0 bottom-0 p-6">
-          <h2 className="text-[26px] leading-[31px] font-semibold text-white mb-2">{project.title}</h2>
-          <p className="text-[14px] leading-[20px] text-white/90 mb-4">{project.description}</p>
-          <div className="flex flex-wrap gap-2">
-            {allTags.map((tag, index) => (
-              <span 
-                key={index} 
-                className="px-3 py-1 bg-white/10 rounded-full text-[12px] text-white/90"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
+          
+          {/* Gradient and Content Overlay - Only show on mobile or non-9:2 */}
+          {(!is9by2 || window.innerWidth < 768) && (
+            <>
+              <div 
+                className="absolute inset-0"
+                style={{
+                  background: imageColor 
+                    ? `linear-gradient(to top, ${imageColor}99 0%, ${imageColor}00 100%)`
+                    : 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)'
+                }}
+              />
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <h2 className="text-[26px] leading-[31px] font-semibold text-white mb-2">{project.title}</h2>
+                <p className="text-[14px] leading-[20px] text-white/90 mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {displayTags.map((tag, index) => (
+                    <span 
+                      key={index} 
+                      className="px-3 py-1 bg-white/10 rounded-full text-[12px] text-white/90"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </Link>
