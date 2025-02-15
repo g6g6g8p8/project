@@ -36,7 +36,12 @@ export function ProjectCard({ project, imageColor, isRelated = false }: ProjectC
     }
   };
 
-  const displayTags = project.tags.slice(0, 3);
+  // Combine category and client with tags
+  const allTags = [
+    { text: project.category, type: 'category' },
+    { text: project.client, type: 'client' },
+    ...project.tags.slice(0, 1).map(tag => ({ text: tag, type: 'tag' }))
+  ];
 
   return (
     <Link 
@@ -45,7 +50,7 @@ export function ProjectCard({ project, imageColor, isRelated = false }: ProjectC
     >
       <div className={`relative ${is9by4 ? 'md:grid md:grid-cols-[33%_67%]' : ''}`}>
         {/* Content Section - Only for 9:4 on desktop */}
-        {is9by4 && (
+        {is9by4 && !isMobile && (
           <div className="hidden md:flex relative flex-col justify-between p-8 h-full overflow-hidden rounded-l-2xl 
             dark:ring-1 dark:ring-white/[0.08]"
           >
@@ -61,12 +66,12 @@ export function ProjectCard({ project, imageColor, isRelated = false }: ProjectC
               <p className="text-[14px] leading-[20px] text-white/90">{project.description}</p>
             </div>
             <div className="relative z-10 flex flex-wrap gap-2">
-              {displayTags.map((tag, index) => (
+              {allTags.map((tag, index) => (
                 <span 
                   key={index} 
                   className="px-3 py-1 bg-white/10 rounded-full text-[12px] text-white/90"
                 >
-                  {tag}
+                  {tag.text}
                 </span>
               ))}
             </div>
@@ -74,7 +79,7 @@ export function ProjectCard({ project, imageColor, isRelated = false }: ProjectC
         )}
 
         {/* Shadow wrapper */}
-        <div className="rounded-2xl dark:ring-1 dark:ring-white/[0.08]">
+        <div className="rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.092)] dark:ring-1 dark:ring-white/[0.08] dark:shadow-none">
           {/* Image Section */}
           <div className={`
             w-full overflow-hidden 
@@ -108,12 +113,12 @@ export function ProjectCard({ project, imageColor, isRelated = false }: ProjectC
                 <p className="text-[14px] leading-[20px] text-white/90 mb-4">{project.description}</p>
                 {!isRelated && (
                   <div className="flex flex-wrap gap-2">
-                    {displayTags.map((tag, index) => (
+                    {allTags.map((tag, index) => (
                       <span 
                         key={index} 
                         className="px-3 py-1 bg-white/10 rounded-full text-[12px] text-white/90"
                       >
-                        {tag}
+                        {tag.text}
                       </span>
                     ))}
                   </div>

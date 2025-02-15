@@ -228,7 +228,7 @@ export default function ProjectDetail() {
 
       {/* Hero Image */}
       <div className="relative max-w-[1200px] mx-auto">
-        <div className="aspect-[3/4] md:aspect-[9/4] w-full shadow-[0_2px_8px_rgba(0,0,0,0.092)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)] dark:shadow-none md:rounded-2xl overflow-hidden">
+        <div className="aspect-[3/4] md:aspect-[9/4] w-full shadow-[0_2px_8px_rgba(0,0,0,0.092)] dark:shadow-none md:rounded-2xl overflow-hidden">
           <img
             src={project.image_url}
             alt={project.title}
@@ -247,9 +247,32 @@ export default function ProjectDetail() {
         <div className="absolute inset-x-0 bottom-0 px-5 md:px-8 lg:px-10 py-6">
           <div className="max-w-4xl">
             <h1 className="text-title-2 md:text-title-1 text-white mb-2">{project.title}</h1>
-            <p className="text-callout md:text-body text-white/90 max-w-[90%] leading-loose">
+            <p className="text-callout md:text-body text-white/90 max-w-[90%] leading-loose mb-4">
               {project.description}
             </p>
+            <div className="flex flex-wrap gap-2">
+              {project.tags.map((tag, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleFilter('tag', tag)}
+                  className="px-3 py-1 bg-white/10 rounded-full text-[12px] text-white/90 hover:opacity-80 transition-opacity"
+                >
+                  {tag}
+                </button>
+              ))}
+              <button
+                onClick={() => handleFilter('client', project.client)}
+                className="px-3 py-1 bg-white/10 rounded-full text-[12px] text-white/90 hover:opacity-80 transition-opacity"
+              >
+                {project.client}
+              </button>
+              <button
+                onClick={() => handleFilter('role', project.role)}
+                className="px-3 py-1 bg-white/10 rounded-full text-[12px] text-white/90 hover:opacity-80 transition-opacity"
+              >
+                {project.role}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -263,34 +286,6 @@ export default function ProjectDetail() {
                 {renderContent(item)}
               </div>
             ))}
-          </div>
-
-          {/* Tags Section */}
-          <div className="mt-16 space-y-5">
-            <h3 className="text-subheadline font-medium opacity-60">EXPLORE</h3>
-            <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleFilter('tag', tag)}
-                  className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
-                >
-                  {tag}
-                </button>
-              ))}
-              <button
-                onClick={() => handleFilter('client', project.client)}
-                className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
-              >
-                {project.client}
-              </button>
-              <button
-                onClick={() => handleFilter('role', project.role)}
-                className="px-4 py-2 bg-gray-50 dark:bg-white/10 rounded-full text-footnote dark:text-white/90 hover:opacity-80 transition-opacity"
-              >
-                {project.role}
-              </button>
-            </div>
           </div>
 
           {/* Related Projects */}

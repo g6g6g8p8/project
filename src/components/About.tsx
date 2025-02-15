@@ -60,6 +60,33 @@ export function About() {
             <CareerHighlights />
           </div>
 
+          {/* Awards Section */}
+          <div className="space-y-5">
+            <h3 className="text-[14px] leading-[17px] font-medium opacity-60 dark:text-white/60">AWARDS</h3>
+            <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
+              <div className="space-y-6">
+                {about.awards.map((award, index) => (
+                  <React.Fragment key={award.id}>
+                    <div className="space-y-2">
+                      <div className="text-[22px] leading-[27px] font-semibold dark:text-white/90">
+                        {award.title}
+                      </div>
+                      <div className="text-[16px] leading-[19px] text-foreground/60">
+                        {award.organization}
+                      </div>
+                      <p className="text-[16px] leading-[24px] text-foreground/80 dark:text-white/80">
+                        {award.year}
+                      </p>
+                    </div>
+                    {index < about.awards.length - 1 && (
+                      <div className="h-px bg-[#E5E5E5] dark:bg-white/10" />
+                    )}
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+          </div>
+
           {/* Column 3: What I Do & Brands */}
           <div className="space-y-8">
             {/* What I Do */}
