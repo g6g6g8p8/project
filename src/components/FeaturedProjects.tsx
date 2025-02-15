@@ -39,7 +39,7 @@ export function FeaturedProjects() {
   return (
     <div className="space-y-8">
       {hasFilters && (
-        <div className="px-5 md:px-8 lg:px-10">
+        <div className="px-5 md:px-8 lg:px-10 max-w-[1200px] mx-auto">
           <button
             onClick={clearFilters}
             className="text-[14px] leading-[17px] opacity-60 hover:opacity-100 transition-opacity"
@@ -49,7 +49,7 @@ export function FeaturedProjects() {
         </div>
       )}
       
-      <div className="px-5 md:px-8 lg:px-10 grid grid-cols-1 md:grid-cols-2 gap-5 auto-rows-fr">
+      <div className="px-5 md:px-8 lg:px-10 max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 auto-rows-fr">
         {projects.map((project) => (
           <ProjectCard 
             key={project.id} 

@@ -227,8 +227,8 @@ export default function ProjectDetail() {
       </div>
 
       {/* Hero Image */}
-      <div className="relative max-w-[1440px] mx-auto">
-        <div className="md:aspect-[21/9] aspect-[3/4] w-full shadow-[0_2px_8px_rgba(0,0,0,0.092)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)] dark:shadow-none md:rounded-2xl overflow-hidden">
+      <div className="relative max-w-[1200px] mx-auto">
+        <div className="aspect-[3/4] md:aspect-[9/4] w-full shadow-[0_2px_8px_rgba(0,0,0,0.092)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)] dark:shadow-none md:rounded-2xl overflow-hidden">
           <img
             src={project.image_url}
             alt={project.title}
@@ -256,7 +256,7 @@ export default function ProjectDetail() {
 
       {/* Main Content */}
       <div className="px-5 md:px-8 lg:px-10 py-8 md:py-16">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-[1200px] mx-auto">
           <div className="space-y-8 md:space-y-16">
             {content?.map((item) => (
               <div key={item.id}>

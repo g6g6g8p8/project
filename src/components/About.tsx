@@ -22,9 +22,11 @@ export function About() {
   return (
     <div className="min-h-screen bg-[#F7F7F7] dark:bg-black">
       <MobileCloseButton />
-      <Header />
+      <div className="hidden md:block">
+        <Header />
+      </div>
       <div className="p-5 md:p-8 lg:p-10">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[1200px] mx-auto">
           {/* Column 1: Profile & About Me */}
           <div className="space-y-8">
             {/* Profile Section */}
@@ -54,7 +56,7 @@ export function About() {
           </div>
 
           {/* Column 2: Career Highlights */}
-          <div className="lg:col-span-2">
+          <div className="md:col-span-2 lg:col-span-1">
             <CareerHighlights />
           </div>
 

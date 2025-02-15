@@ -11,6 +11,7 @@ interface ProjectCardProps {
 export function ProjectCard({ project, imageColor, isRelated = false }: ProjectCardProps) {
   const [isMobile, setIsMobile] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const is9by4 = project.aspect_ratio === '9:4';
 
   useEffect(() => {
     const checkMobile = () => {
@@ -23,7 +24,7 @@ export function ProjectCard({ project, imageColor, isRelated = false }: ProjectC
 
   const getAspectRatioClass = () => {
     if (isRelated) {
-      return 'aspect-[3/4] md:aspect-[4/3]';
+      return 'aspect-[3/4]';
     }
     switch (project.aspect_ratio) {
       case '3:4':
@@ -35,8 +36,7 @@ export function ProjectCard({ project, imageColor, isRelated = false }: ProjectC
     }
   };
 
-  const displayTags = [project.category, project.client].filter(Boolean);
-  const is9by4 = project.aspect_ratio === '9:4' && !isRelated;
+  const displayTags = project.tags.slice(0, 3);
 
   return (
     <Link 
@@ -101,25 +101,23 @@ export function ProjectCard({ project, imageColor, isRelated = false }: ProjectC
               `}
             />
             
-            {/* Gradient and Content Overlay */}
+            {/* Content Overlay without gradient */}
             {(!is9by4 || isMobile) && (
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
-                <div className="absolute inset-x-0 bottom-0 p-6">
-                  <h2 className="text-[26px] leading-[31px] font-semibold text-white mb-2">{project.title}</h2>
-                  <p className="text-[14px] leading-[20px] text-white/90 mb-4">{project.description}</p>
-                  {!isRelated && (
-                    <div className="flex flex-wrap gap-2">
-                      {displayTags.map((tag, index) => (
-                        <span 
-                          key={index} 
-                          className="px-3 py-1 bg-white/10 rounded-full text-[12px] text-white/90"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <h2 className="text-[26px] leading-[31px] font-semibold text-white mb-2">{project.title}</h2>
+                <p className="text-[14px] leading-[20px] text-white/90 mb-4">{project.description}</p>
+                {!isRelated && (
+                  <div className="flex flex-wrap gap-2">
+                    {displayTags.map((tag, index) => (
+                      <span 
+                        key={index} 
+                        className="px-3 py-1 bg-white/10 rounded-full text-[12px] text-white/90"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
           </div>
