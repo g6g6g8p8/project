@@ -289,7 +289,7 @@ export default function ProjectDetail() {
           {/* Related Projects */}
           <div className="mt-16 space-y-8">
             <h3 className="text-subheadline font-medium opacity-60">RELATED PROJECTS</h3>
-            {Array.from(groupProjectsByTag()).map(([tag, relatedProjects]) => (
+            {Array.from(groupProjectsByTag(projects)).map(([tag, relatedProjects]) => (
               <div key={tag} className="space-y-4">
                 <h4 className="text-[18px] leading-[22px] font-medium">{tag}</h4>
                 <div className="relative">

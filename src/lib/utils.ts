@@ -68,3 +68,18 @@ export function useTheme() {
     }
   });
 }
+
+export function groupProjectsByTag(projects: Project[]) {
+  const groupedProjects = new Map<string, Project[]>();
+  
+  projects.forEach(project => {
+    project.tags.forEach(tag => {
+      if (!groupedProjects.has(tag)) {
+        groupedProjects.set(tag, []);
+      }
+      groupedProjects.get(tag)?.push(project);
+    });
+  });
+  
+  return groupedProjects;
+}
