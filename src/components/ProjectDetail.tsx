@@ -7,7 +7,7 @@ import { getImageColor } from '../lib/utils';
 import type { ProjectContent, GalleryItem } from '../types/database';
 import { useProjects } from '../hooks/useProjects';
 import { groupProjectsByTag } from '../lib/utils';
-import ProjectCard from './ProjectCard';
+import { ProjectCard } from './ProjectCard';
 import { LoadingSkeleton } from './LoadingSkeleton';
 
 export default function ProjectDetail() {
