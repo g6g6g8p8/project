@@ -47,6 +47,13 @@ export interface Experience {
   logo_url: string;
 }
 
+export interface Award {
+  id: number;
+  title: string;
+  organization: string;
+  year: string;
+}
+
 export interface About {
   id: number;
   name: string;
@@ -56,7 +63,7 @@ export interface About {
   short_bio: string;
   what_i_do: string;
   brands: string[];
-  awards: string[];
+  awards: Award[];
   career_highlights: CareerHighlight[];
 }
 

@@ -27,9 +27,17 @@ export function useAbout() {
 
         if (careerError) throw careerError;
 
+        const { data: awardsData, error: awardsError } = await supabase
+          .from('awards')
+          .select('*')
+          .order('year', { ascending: false });
+
+        if (awardsError) throw awardsError;
+
         setAbout({
           ...aboutData,
-          career_highlights: careerData
+          career_highlights: careerData,
+          awards: awardsData
         });
       } catch (error) {
         console.error('Error fetching about data:', error);
