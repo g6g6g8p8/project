@@ -113,32 +113,15 @@ function About() {
   const { about, loading } = useAbout();
   const navigate = useNavigate();
 
-  const handleFilter = (type: 'client' | 'tag', value: string) => {
-    navigate(`/?${new URLSearchParams({ [type]: value }).toString()}`);
-  };
-
-  const handleShare = async () => {
-    const shareData = {
-      title: about?.name || 'About',
-      text: about?.short_bio || '',
-      url: window.location.href,
-    };
-
-    try {
-      if (navigator.share) {
-        await navigator.share(shareData);
-      } else {
-        await navigator.clipboard.writeText(window.location.href);
-        alert('Link copied to clipboard!');
-      }
-    } catch (error) {
-      console.error('Error sharing:', error);
-    }
+  const handleFilter = (type: 'client' | 'year' | 'tag', value: string) => {
+    const searchParams = new URLSearchParams();
+    searchParams.set(type, value);
+    navigate(`/?${searchParams.toString()}`);
   };
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-foreground"></div>
       </div>
     );
@@ -214,27 +197,24 @@ function About() {
   return (
     <div className="min-h-screen bg-[#F7F7F7] dark:bg-black">
       <div className="p-5 md:p-8 lg:p-10">
-        <div className="max-w-[1440px] mx-auto">
-          <button
-            onClick={() => navigate(-1)}
-            className="fixed lg:absolute top-8 right-8 z-50 w-9 h-9 flex items-center justify-center rounded-full bg-gray-500/90 hover:bg-gray-600/90 backdrop-blur-sm text-white transition-colors"
-          >
-            <CloseIcon size={17} />
-          </button>
-
-          {/* Mobile Layout */}
-          <div className="lg:hidden space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+          <div className="space-y-8">
             {/* Profile Section */}
             <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
               <div className="flex items-center gap-4 mb-4">
-                <img src={about.avatar_url} alt="" className="w-16 h-16 rounded-full" />
+                <img 
+                  src={about.avatar_url} 
+                  alt=""
+                  className="w-16 h-16 rounded-full"
+                />
                 <div>
-                  <h1 className="text-[22px] leading-[27px] dark:text-white">{about.name}</h1>
-                  <a href={`mailto:${about.email}`} className="text-body opacity-60 dark:text-white/60">{about.email}</a>
+                  <h1 className="text-title-2 dark:text-white">{about.name}</h1>
+                  <a href={`mailto:${about.email}`} className="text-body opacity-60 dark:text-white/60">
+                    {about.email}
+                  </a>
                 </div>
               </div>
-              <div className="h-px bg-gray-200 dark:bg-white/10 my-4" />
-              <h2 className="text-[18px] leading-[22px] dark:text-white">{about.title}</h2>
+              <h2 className="text-title-3 dark:text-white">{about.title}</h2>
             </div>
 
             {/* About Me */}
@@ -281,80 +261,6 @@ function About() {
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Desktop Layout */}
-          <div className="hidden lg:grid lg:grid-cols-3 gap-8">
-            {/* Column 1: Profile + About me + What I Do */}
-            <div className="space-y-8">
-              {/* Profile Section */}
-              <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
-                <div className="flex items-center gap-4 mb-4">
-                  <img 
-                    src={about.avatar_url} 
-                    alt=""
-                    className="w-[54px] h-[54px] rounded-full"
-                  />
-                  <div>
-                    <h1 className="text-[22px] leading-[27px] dark:text-white">{about.name}</h1>
-                    <a href={`mailto:${about.email}`} className="text-body opacity-60 dark:text-white/60">
-                      {about.email}
-                    </a>
-                  </div>
-                </div>
-                <div className="h-px bg-[#E5E5E5] dark:bg-white/10 my-4" />
-                <h2 className="text-[18px] leading-[22px] dark:text-white">{about.title}</h2>
-              </div>
-              
-              {/* About Me */}
-              <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
-                <h3 className="text-[18px] leading-[22px] mb-4 dark:text-white">About me</h3>
-                <div className="prose dark:prose-invert">
-                  <p className="text-body dark:text-white/90">{about.short_bio}</p>
-                </div>
-              </div>
-
-              {/* What I Do */}
-              <div className="space-y-5">
-                <h3 className="text-[14px] leading-[17px] font-medium opacity-60 dark:text-white/60">WHAT I DO</h3>
-                <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
-                  <div className="prose dark:prose-invert">
-                    <p className="text-body dark:text-white/90">{about.what_i_do}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Column 2: Career Highlights */}
-            <div className="space-y-8">
-              <CareerHighlights />
-            </div>
-
-            {/* Column 3: Brands + Awards */}
-            <div className="space-y-8">
-              <Brands />
-              <div className="space-y-5">
-                <h3 className="text-[14px] leading-[17px] font-medium opacity-60 dark:text-white/60">AWARDS</h3>
-                <div className="bg-white dark:bg-[#282828] rounded-2xl p-6">
-                  <div className="space-y-2">
-                    {about.awards.map((award, index) => (
-                      <p key={index} className="text-body dark:text-white/90">{award}</p>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Share Button */}
-          <div className="mt-16 flex items-center justify-center">
-            <button
-              onClick={handleShare}
-              className="inline-flex items-center gap-2 px-6 py-3 border border-border hover:bg-border/10 rounded-lg text-callout text-foreground transition-colors"
-            >
-              <Share2 size={18} />
-              Share
-            </button>
           </div>
         </div>
       </div>

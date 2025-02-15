@@ -14,21 +14,25 @@ export interface Project {
   order: number;
 }
 
+type GalleryItem = {
+  type: 'image' | 'video';
+  url: string;
+  poster?: string;
+  autoplay?: boolean;
+  loop?: boolean;
+  muted?: boolean;
+}
+
 export interface ProjectContent {
   id: string;
   project_id: number;
-  type: 'text' | 'gallery' | 'video' | 'image';
+  type: 'text' | 'gallery' | 'video';
   content: {
     text?: string;
-    gallery?: string[];
+    gallery?: GalleryItem[];
     video?: {
-      url: string;
-      thumbnail?: string;
       title?: string;
-    };
-    image?: {
       url: string;
-      caption?: string;
     };
   };
   order: number;

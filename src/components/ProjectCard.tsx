@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Project } from '../types/database';
 
@@ -25,6 +25,20 @@ export default function ProjectCard({ project, imageColor }: ProjectCardProps) {
     project.category,
     project.client
   ].filter(Boolean);
+
+  const [isMobile, setIsMobile] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <Link 
@@ -70,14 +84,29 @@ export default function ProjectCard({ project, imageColor }: ProjectCardProps) {
             rounded-2xl
             ${getAspectRatioClass()}
           `}>
-            <img 
-              src={project.image_url} 
-              alt={project.title}
-              className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-            />
+            <div className="relative">
+              {!imageLoaded && (
+                <div 
+                  className="absolute inset-0 bg-gray-100 dark:bg-white/5 animate-pulse"
+                  style={{
+                    backdropFilter: 'blur(8px)',
+                  }} 
+                />
+              )}
+              <img 
+                src={project.image_url} 
+                alt={project.title}
+                loading="lazy"
+                onLoad={() => setImageLoaded(true)}
+                className={`
+                  w-full h-full object-cover transition-all duration-500
+                  ${imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}
+                `}
+              />
+            </div>
             
             {/* Gradient and Content Overlay - Only show on mobile or non-9:4 */}
-            {(!is9by4 || window.innerWidth < 768) && (
+            {(!is9by4 || isMobile) && (
               <div className="absolute inset-x-0 bottom-0 p-6">
                 <h2 className="text-[26px] leading-[31px] font-semibold text-white mb-2">{project.title}</h2>
                 <p className="text-[14px] leading-[20px] text-white/90 mb-4">{project.description}</p>
