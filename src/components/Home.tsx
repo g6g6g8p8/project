@@ -3,7 +3,7 @@ import { FeaturedProjects } from './FeaturedProjects';
 
 export function Home() {
   return (
-    <div>
+    <div className="min-h-screen bg-background">
       <Header />
       <FeaturedProjects />
     </div>
