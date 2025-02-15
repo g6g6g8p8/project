@@ -12,7 +12,7 @@ import { LinkedInIcon, BehanceIcon, SoundCloudIcon } from './components/icons/So
 import { useProjects, ProjectFilters } from './hooks/useProjects';
 import { cn } from './lib/utils';
 import ProjectDetail from './components/ProjectDetail';
-import { ProjectCard } from './ProjectCard';
+import { ProjectCard } from './components/ProjectCard';
 import { getImageColor } from './lib/utils';
 import { useAbout } from './hooks/useAbout';
 
