@@ -7,7 +7,7 @@ interface ProjectCardProps {
   imageColor?: string;
 }
 
-export default function ProjectCard({ project, imageColor }: ProjectCardProps) {
+export function ProjectCard({ project, imageColor }: ProjectCardProps) {
   const is9by4 = project.aspect_ratio === '9:4';
   
   const getAspectRatioClass = () => {
