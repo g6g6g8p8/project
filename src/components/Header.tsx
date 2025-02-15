@@ -1,24 +1,36 @@
 import { Link } from 'react-router-dom';
+import { UserCircle } from 'lucide-react';
 import { useAbout } from '../hooks/useAbout';
 
 export function Header() {
   const { about } = useAbout();
   
   return (
-    <header className="hidden md:flex items-center justify-between px-8 py-6">
-      <div>
-        <Link to="/" className="block">
-          <h1 className="text-[26px] leading-[31px] font-semibold">{about?.title}</h1>
-          <p className="text-[14px] leading-[20px] opacity-60 mt-1">{about?.subtitle}</p>
+    <header className="hidden md:block px-8 py-6">
+      <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center gap-1.5">
+          <Link to="/" className="text-[25px] leading-[30px] md:text-[27px] md:leading-[32px] font-semibold tracking-[-.021em]">
+            Giulio Pinotti,
+          </Link>
+          <span className="text-[20px] leading-[25px] md:text-[22px] md:leading-[27px] tracking-[-.021em] text-foreground/60">
+            Creative Director
+          </span>
+        </div>
+        <Link 
+          to="/about"
+          className="w-9 h-9 flex items-center justify-center rounded-full bg-border/10 hover:bg-border/20 transition-colors overflow-hidden"
+        >
+          {about?.avatar_url ? (
+            <img 
+              src={about.avatar_url} 
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <UserCircle size={22} className="opacity-60" />
+          )}
         </Link>
       </div>
-      <Link to="/about" className="block">
-        <img
-          src={about?.avatar_url}
-          alt="Avatar"
-          className="w-10 h-10 rounded-full"
-        />
-      </Link>
     </header>
   );
 } 

@@ -10,6 +10,7 @@ import { groupProjectsByTag } from '../lib/utils';
 import { ProjectCard } from './ProjectCard';
 import { LoadingSkeleton } from './LoadingSkeleton';
 import { Header } from './Header';
+import { MobileCloseButton } from './MobileCloseButton';
 
 export default function ProjectDetail() {
   const { slug } = useParams();
@@ -220,14 +221,7 @@ export default function ProjectDetail() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Mobile close button */}
-      <Link
-        to="/"
-        className="md:hidden fixed top-5 right-5 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white"
-        aria-label="Close"
-      >
-        <CloseIcon size={20} />
-      </Link>
+      <MobileCloseButton />
 
       {/* Desktop Header */}
       <Header />

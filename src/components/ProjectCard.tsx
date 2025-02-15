@@ -77,12 +77,12 @@ export function ProjectCard({ project, imageColor, isRelated = false }: ProjectC
         <div className="rounded-2xl dark:ring-1 dark:ring-white/[0.08]">
           {/* Image Section */}
           <div className={`
-            w-full overflow-hidden 
+            relative w-full overflow-hidden 
             ${is9by4 ? 'md:rounded-l-none' : ''} 
             rounded-2xl
             ${getAspectRatioClass()}
           `}>
-            <div className="relative">
+            <div className="absolute inset-0">
               {!imageLoaded && (
                 <div 
                   className="absolute inset-0 bg-gray-100 dark:bg-white/5 animate-pulse"
@@ -103,20 +103,24 @@ export function ProjectCard({ project, imageColor, isRelated = false }: ProjectC
               />
             </div>
             
-            {/* Gradient and Content Overlay - Only show on mobile or non-9:4 */}
+            {/* Gradient and Content Overlay */}
             {(!is9by4 || isMobile) && (
-              <div className="absolute inset-x-0 bottom-0 p-6">
-                <h2 className="text-[26px] leading-[31px] font-semibold text-white mb-2">{project.title}</h2>
-                <p className="text-[14px] leading-[20px] text-white/90 mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {displayTags.map((tag, index) => (
-                    <span 
-                      key={index} 
-                      className="px-3 py-1 bg-white/10 rounded-full text-[12px] text-white/90"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
+                <div className="absolute inset-x-0 bottom-0 p-6">
+                  <h2 className="text-[26px] leading-[31px] font-semibold text-white mb-2">{project.title}</h2>
+                  <p className="text-[14px] leading-[20px] text-white/90 mb-4">{project.description}</p>
+                  {!isRelated && (
+                    <div className="flex flex-wrap gap-2">
+                      {displayTags.map((tag, index) => (
+                        <span 
+                          key={index} 
+                          className="px-3 py-1 bg-white/10 rounded-full text-[12px] text-white/90"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             )}
