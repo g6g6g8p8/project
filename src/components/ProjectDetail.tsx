@@ -9,6 +9,7 @@ import { useProjects } from '../hooks/useProjects';
 import { groupProjectsByTag } from '../lib/utils';
 import { ProjectCard } from './ProjectCard';
 import { LoadingSkeleton } from './LoadingSkeleton';
+import { Header } from './Header';
 
 export default function ProjectDetail() {
   const { slug } = useParams();
@@ -219,6 +220,18 @@ export default function ProjectDetail() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Mobile close button */}
+      <Link
+        to="/"
+        className="md:hidden fixed top-5 right-5 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white"
+        aria-label="Close"
+      >
+        <CloseIcon size={20} />
+      </Link>
+
+      {/* Desktop Header */}
+      <Header />
+
       {/* Hero Image */}
       <div className="relative">
         <div className="md:aspect-[21/9] aspect-[3/4] w-full shadow-[0_2px_8px_rgba(0,0,0,0.092)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)] dark:shadow-none">
@@ -296,7 +309,7 @@ export default function ProjectDetail() {
                   <div className="flex overflow-x-auto pb-4 -mx-5 lg:mx-0 px-5 lg:px-0 gap-5 no-scrollbar">
                     {relatedProjects.map((relatedProject) => (
                       <div key={relatedProject.id} className="w-[280px] flex-shrink-0">
-                        <ProjectCard project={relatedProject} />
+                        <ProjectCard project={relatedProject} isRelated />
                       </div>
                     ))}
                   </div>

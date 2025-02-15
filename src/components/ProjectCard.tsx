@@ -5,27 +5,10 @@ import { Project } from '../types/database';
 interface ProjectCardProps {
   project: Project;
   imageColor?: string;
+  isRelated?: boolean;
 }
 
-export function ProjectCard({ project, imageColor }: ProjectCardProps) {
-  const is9by4 = project.aspect_ratio === '9:4';
-  
-  const getAspectRatioClass = () => {
-    switch (project.aspect_ratio) {
-      case '3:4':
-        return 'aspect-[3/4]';
-      case '9:4':
-        return 'aspect-[3/4] md:aspect-[9/4]'; // 3:4 on mobile, 9:4 on desktop
-      default:
-        return 'aspect-[3/4] md:aspect-[4/3]';
-    }
-  };
-
-  const displayTags = [
-    project.category,
-    project.client
-  ].filter(Boolean);
-
+export function ProjectCard({ project, imageColor, isRelated = false }: ProjectCardProps) {
   const [isMobile, setIsMobile] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -33,12 +16,27 @@ export function ProjectCard({ project, imageColor }: ProjectCardProps) {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  const getAspectRatioClass = () => {
+    if (isRelated) {
+      return 'aspect-[3/4] md:aspect-[4/3]';
+    }
+    switch (project.aspect_ratio) {
+      case '3:4':
+        return 'aspect-[3/4]';
+      case '9:4':
+        return 'aspect-[3/4] md:aspect-[9/4]';
+      default:
+        return 'aspect-[3/4] md:aspect-[4/3]';
+    }
+  };
+
+  const displayTags = [project.category, project.client].filter(Boolean);
+  const is9by4 = project.aspect_ratio === '9:4' && !isRelated;
 
   return (
     <Link 
