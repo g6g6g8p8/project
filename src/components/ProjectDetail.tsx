@@ -222,13 +222,13 @@ export default function ProjectDetail() {
   return (
     <div className="min-h-screen bg-background">
       <MobileCloseButton />
-
-      {/* Desktop Header */}
-      <Header />
+      <div className="hidden md:block">
+        <Header />
+      </div>
 
       {/* Hero Image */}
-      <div className="relative">
-        <div className="md:aspect-[21/9] aspect-[3/4] w-full shadow-[0_2px_8px_rgba(0,0,0,0.092)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)] dark:shadow-none">
+      <div className="relative max-w-[1440px] mx-auto">
+        <div className="md:aspect-[21/9] aspect-[3/4] w-full shadow-[0_2px_8px_rgba(0,0,0,0.092)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)] dark:shadow-none md:rounded-2xl overflow-hidden">
           <img
             src={project.image_url}
             alt={project.title}

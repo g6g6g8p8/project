@@ -6,7 +6,7 @@ export function Header() {
   const { about } = useAbout();
   
   return (
-    <header className="hidden md:block px-8 py-6">
+    <div className="p-5 md:p-8 lg:p-10">
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-1.5">
           <Link to="/" className="text-[25px] leading-[30px] md:text-[27px] md:leading-[32px] font-semibold tracking-[-.021em]">
@@ -31,6 +31,6 @@ export function Header() {
           )}
         </Link>
       </div>
-    </header>
+    </div>
   );
 } 

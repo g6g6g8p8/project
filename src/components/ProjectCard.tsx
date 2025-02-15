@@ -77,31 +77,29 @@ export function ProjectCard({ project, imageColor, isRelated = false }: ProjectC
         <div className="rounded-2xl dark:ring-1 dark:ring-white/[0.08]">
           {/* Image Section */}
           <div className={`
-            relative w-full overflow-hidden 
+            w-full overflow-hidden 
             ${is9by4 ? 'md:rounded-l-none' : ''} 
             rounded-2xl
             ${getAspectRatioClass()}
           `}>
-            <div className="absolute inset-0">
-              {!imageLoaded && (
-                <div 
-                  className="absolute inset-0 bg-gray-100 dark:bg-white/5 animate-pulse"
-                  style={{
-                    backdropFilter: 'blur(8px)',
-                  }} 
-                />
-              )}
-              <img 
-                src={project.image_url} 
-                alt={project.title}
-                loading="lazy"
-                onLoad={() => setImageLoaded(true)}
-                className={`
-                  w-full h-full object-cover transition-all duration-500
-                  ${imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}
-                `}
+            {!imageLoaded && (
+              <div 
+                className="absolute inset-0 bg-gray-100 dark:bg-white/5 animate-pulse"
+                style={{
+                  backdropFilter: 'blur(8px)',
+                }} 
               />
-            </div>
+            )}
+            <img 
+              src={project.image_url} 
+              alt={project.title}
+              loading="lazy"
+              onLoad={() => setImageLoaded(true)}
+              className={`
+                w-full h-full object-cover transition-all duration-500
+                ${imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}
+              `}
+            />
             
             {/* Gradient and Content Overlay */}
             {(!is9by4 || isMobile) && (
